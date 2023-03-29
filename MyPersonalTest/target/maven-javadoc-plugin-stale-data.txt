@@ -1,0 +1,44 @@
+@options
+@packages
+-encoding
+'UTF-8'
+-protected
+-source
+'1.7'
+-sourcepath
+'C:/SQP/Java-SQP/MyPersonalTest/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2023. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/SQP/Java-SQP/MyPersonalTest/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'MyPersonalTest 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/javase/7/docs/api' 'C:/SQP/Java-SQP/MyPersonalTest/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'MyPersonalTest 1.0-SNAPSHOT API'
+es.deusto.spq
+C:\SQP\Java-SQP\MyPersonalTest\src\main\java = 1679389089604
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\allclasses-index.html = 1679389318327
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\allpackages-index.html = 1679389318330
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\element-list = 1679389318283
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\help-doc.html = 1679389318366
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\index-all.html = 1679389318359
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\index.html = 1679389318361
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\jquery-ui.overrides.css = 1679389318407
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\member-search-index.js = 1679389318342
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\module-search-index.js = 1679389318334
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\overview-tree.html = 1679389318315
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\package-search-index.js = 1679389318339
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\script.js = 1679389318373
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\search.js = 1679389318376
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\stylesheet.css = 1679389318371
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\tag-search-index.js = 1679389318343
+C:\SQP\Java-SQP\MyPersonalTest\target\site\apidocs\type-search-index.js = 1679389318341
