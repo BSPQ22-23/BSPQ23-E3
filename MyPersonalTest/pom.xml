@@ -7,10 +7,14 @@
   <groupId>es.deusto.spq</groupId>
   <artifactId>MyPersonalTest</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <modules> 
-  	<module>../Client</module>
-  	<module>../Server</module>
-  </modules>
+  <profiles>
+    <profile>
+      <modules> 
+        <module>../Client</module>
+        <module>../Server</module>
+      </modules>
+    </profile>
+  </profiles>
 <packaging>pom</packaging>
   <name>MyPersonalTest</name>
   <!-- FIXME change it to the project's website -->
