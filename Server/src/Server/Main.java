@@ -1,19 +1,34 @@
 package Server;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.sql.Date;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.util.List;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 public class Main {
-	public static void main(String[] args) throws Exception{
-		ServerSocket server = new ServerSocket(8080);
-        System.out.println("Listening for connection on port 8080 ....");
-        while (true) {
-            try (Socket socket = server.accept()) {
-                Date today = new Date(System.currentTimeMillis());
-                String httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + today;
-                socket.getOutputStream()
-                      .write(httpResponse.getBytes("UTF-8"));
-            }
+	public static void main(String[] args) throws Exception {
+        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        server.createContext("/test", new MyHandler());
+        server.setExecutor(null); // creates a default executor
+        server.start();
+        System.out.println("Server started...");
+    }
+
+    static class MyHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange t) throws IOException {
+        	t.getRequestHeaders().getOrDefault("user", List.of());
+        	System.out.println("A");
+            String response = "This is the response";
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
         }
-	}
+    }
+
 
 }
