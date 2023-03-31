@@ -8,16 +8,20 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 
-
+//curl 127.0.0.1:8000/test
 public class Main {
 		private static String destination;
-		private HttpClient client = HttpClient.newHttpClient();
-		public static void main(String[] args) throws IOException {
+		private static HttpClient client = HttpClient.newHttpClient();
+		public static void main(String[] args) throws IOException, URISyntaxException, InterruptedException, ExecutionException {
 			setService("127.0.0.1",8000);
+			HashMap<String, String> a =  new HashMap<String, String>() ;
+			a.put("aa", "bb");
+			sendRequest("Client", a);
 			
 		}
 		public static void setService(String ip, int port) throws IOException {
@@ -26,11 +30,11 @@ public class Main {
 			destination = url.toString();
 			System.out.println(destination);
 		}
-		public HttpResponse<String> sendRequest(String method) throws URISyntaxException, InterruptedException, ExecutionException {
+		public static HttpResponse<String> sendRequest(String method) throws URISyntaxException, InterruptedException, ExecutionException {
 			return sendRequest(method, Map.of());
 			
 		}
-		public HttpResponse<String> sendRequest(String method, Map<String, String> headers) throws URISyntaxException, InterruptedException, ExecutionException {
+		public static HttpResponse<String> sendRequest(String method, Map<String, String> headers) throws URISyntaxException, InterruptedException, ExecutionException {
 			HttpRequest.Builder request = HttpRequest.newBuilder()
 					  .uri(new URI(destination + method))
 					  .GET();

@@ -19,14 +19,19 @@ public class Main {
 
     static class MyHandler implements HttpHandler {
         @Override
-        public void handle(HttpExchange t) throws IOException {
-        	t.getRequestHeaders().getOrDefault("user", List.of());
-        	System.out.println("A");
-            String response = "This is the response";
-            t.sendResponseHeaders(200, response.length());
-            OutputStream os = t.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
+        public void handle(HttpExchange t) {
+        	try {
+        		List<String> a = t.getRequestHeaders().getOrDefault("user", List.of());
+            	System.out.println(a.get(0));
+                String response = "This is the response";
+                t.sendResponseHeaders(200, response.length());
+                OutputStream os = t.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        	
         }
     }
 
