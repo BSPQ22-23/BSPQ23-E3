@@ -17,11 +17,16 @@ import java.util.concurrent.ExecutionException;
 public class Main {
 		private static String destination;
 		private static HttpClient client = HttpClient.newHttpClient();
-		public static void main(String[] args) throws IOException, URISyntaxException, InterruptedException, ExecutionException {
-			setService("127.0.0.1",8000);
-			HashMap<String, String> a =  new HashMap<String, String>() ;
-			a.put("aa", "bb");
-			sendRequest("Client", a);
+		public static void main(String[] args){
+			try {
+				setService("127.0.0.1",8000);
+				HashMap<String, String> a =  new HashMap<String, String>() ;
+				a.put("aa", "bb");
+				sendRequest("Client", a);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			
 		}
 		public static void setService(String ip, int port) throws IOException {

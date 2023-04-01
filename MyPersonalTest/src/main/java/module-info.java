@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author inigo
- *
- */
-module MyPersonalTest {
-}

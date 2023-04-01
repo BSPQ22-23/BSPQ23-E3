@@ -4,26 +4,26 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 <!-- Estas 3-->
-  <groupId>es.deusto.spq</groupId>
-  <artifactId>MyPersonalTest</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <groupId>SPQ3</groupId>
+  <artifactId>SPQ3</artifactId>
+  <version>0.1_Beta</version>
   <profiles>
     <profile>
       <modules> 
-        <module>../Client</module>
-        <module>../Server</module>
+        <module>Client</module>
+        <module>Server</module>
       </modules>
     </profile>
   </profiles>
 <packaging>pom</packaging>
-  <name>MyPersonalTest</name>
+  <name>Parent</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.9</maven.compiler.source>
+    <maven.compiler.target>1.9</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -33,9 +33,25 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    	<groupId>org.apache.logging.log4j</groupId>
+    	<artifactId>log4j-api</artifactId>
+    	<version>[2.17.1, )</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.logging.log4j</groupId>
+    	<artifactId>log4j-core</artifactId>
+    	<version>[2.17.1, )</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.json</groupId>
+    	<artifactId>json</artifactId>
+    	<version>20230227</version>
+    </dependency>
   </dependencies>
 
   <build>
+  	<sourceDirectory>src</sourceDirectory>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
