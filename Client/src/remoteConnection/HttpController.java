@@ -6,22 +6,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.net.http.HttpRequest.BodyPublisher;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.nio.file.Files;
-import java.util.List;
+import java.util.Base64;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
@@ -55,16 +48,30 @@ public class HttpController {
 	
 	
 	public static HttpResponse<String> sendFile(String file, String method) throws IOException, URISyntaxException, InterruptedException, ExecutionException {
-		DataInputStream dis = new DataInputStream(new FileInputStream(file));
+		DataInputStream dis = new DataInputStream(new FileInputStream("audios/"+file));
 		HttpRequest.Builder request = HttpRequest.newBuilder()
 				  .uri(new URI(destination + method))
 				  .header("songName", new File(file).getName())
-				  .POST(BodyPublishers.ofByteArray(dis.readAllBytes()));	
+				  .POST(BodyPublishers.ofByteArray(Base64.getEncoder().encode(dis.readAllBytes())));	
 		
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
 		dis.close();
 		return response;
 		
     }
+	
+	public static void recieveFile(String file, String method) throws IOException, URISyntaxException, InterruptedException, ExecutionException{
+		HttpRequest.Builder request = HttpRequest.newBuilder()
+				  .uri(new URI(destination + method))
+				  .header("songName", file)
+				  .GET();
+		
+		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
+		DataOutputStream dos = new DataOutputStream(new FileOutputStream("audios/"+file));
+		
+		dos.write(Base64.getDecoder().decode(response.body().getBytes()));
+		dos.close();
+		
+	}
 	
 }
