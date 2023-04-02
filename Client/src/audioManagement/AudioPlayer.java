@@ -14,6 +14,7 @@ public class AudioPlayer {
 	private static Clip clip;
 	private static AudioInputStream ais;
 	
+	
 	public AudioPlayer() {
 		
 	}
@@ -22,6 +23,10 @@ public class AudioPlayer {
 	
 	public static void playNewAudioClip(String audioFile) {
 		clipTime = 0;
+		if(clip!=null && clip.isActive()) {
+			clip.stop();
+		}
+		
 		try {
 			soundfile = new File(audioFile);
 			clip = AudioSystem.getClip();
@@ -44,6 +49,12 @@ public class AudioPlayer {
 	
 	public static long getTime() {
 		return clipTime;
+	}
+	public static Boolean playing() {
+		return clip.isRunning();
+	}
+	public static Boolean active() {
+		return clip.isActive();
 	}
 	
 }

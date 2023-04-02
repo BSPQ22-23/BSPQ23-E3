@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 import remoteConnection.HttpController;
 
 public class SongUploaderWd extends JFrame {
-    private JTextField nameField;
     private JButton fileButton;
     private JTextField secondNameField;
     private File selectedFile;
@@ -27,11 +26,6 @@ public class SongUploaderWd extends JFrame {
         super("Song Uploader");
 
         // create the label and text field for the first name
-        JLabel nameLabel = new JLabel("Name:");
-        nameField = new JTextField(20);
-        JPanel namePanel = new JPanel(new BorderLayout());
-        namePanel.add(nameLabel, BorderLayout.WEST);
-        namePanel.add(nameField, BorderLayout.CENTER);
 
         // create the button to select a file
         fileButText = "Choose file...";
@@ -43,7 +37,7 @@ public class SongUploaderWd extends JFrame {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     selectedFile = fileChooser.getSelectedFile();
                     System.out.println(selectedFile.getName());
-                    fileButText = "Choose file (" + selectedFile.getAbsolutePath() +")";
+                    fileButText = "Choose file (" + selectedFile.getName() +")";
                     fileButton.setText(fileButText);
                     // do something with the selected file
                 }
@@ -64,7 +58,10 @@ public class SongUploaderWd extends JFrame {
                 // handle form submission
             	
             	try {
-            		HttpController.sendFile(selectedFile.getAbsolutePath(), secondNameField.getText());
+            		if(selectedFile!=null) {
+            			HttpController.sendFile(selectedFile.getAbsolutePath(), secondNameField.getText());
+            		}
+            		
             	}catch(Exception f) {
             		f.printStackTrace();
             	}
@@ -85,7 +82,6 @@ public class SongUploaderWd extends JFrame {
 		});
         // create the main panel and add the components to it
         JPanel mainPanel = new JPanel(new GridLayout(4, 1));
-        mainPanel.add(namePanel);
         mainPanel.add(fileButton);
         mainPanel.add(secondNamePanel);
         mainPanel.add(submitButton);

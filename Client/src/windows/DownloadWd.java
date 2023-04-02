@@ -49,34 +49,26 @@ public class DownloadWd extends JFrame{
         JScrollPane scrollPane = new JScrollPane(a);
 
         // Creación de los botones
-        JButton refreshButton = new JButton("Refresh");
         JButton downloadButton = new JButton("Download");
         JButton backButton = new JButton("Back");
         // Creación del contenedor para los botones
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
-        buttonPanel.add(refreshButton);
         buttonPanel.add(downloadButton);
         buttonPanel.add(backButton);
 
         // Añadir la lista y los botones al contenedor principal
         contentPane.add(scrollPane, BorderLayout.CENTER);
         contentPane.add(buttonPanel, BorderLayout.SOUTH);
-        refreshButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// DONT KNOW WHAT TO DO HERE.
-				
-			}
-		});
         downloadButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// DONT KNOW WHAT TO DO HERE.
-				System.out.println(a.getSelectedValue());
 				try {
-					HttpController.recieveFile(a.getSelectedValue());
+					if(a.getSelectedValue()!=null) {
+						HttpController.recieveFile(a.getSelectedValue());
+					}
+					
 				} catch (IOException | URISyntaxException | InterruptedException | ExecutionException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

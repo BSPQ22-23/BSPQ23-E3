@@ -23,6 +23,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import audioManagement.AudioPlayer;
+
 public class Player extends JFrame{
 	/**
 	 * 
@@ -31,7 +33,8 @@ public class Player extends JFrame{
 	private Player p = null;
 	private static final long serialVersionUID = 1L;
 	private int song = -1;
-	Clip clip;
+	
+	
 //	public static void main(String[] args) {
 //		
 //	}
@@ -56,15 +59,13 @@ public class Player extends JFrame{
 
         // Creación de los botones
         JButton playButton = new JButton("Play");
-        JButton nextButton = new JButton("Stop");
-        JButton refreshButton = new JButton("Refresh");
+        JButton stopButton = new JButton("Stop");
         JButton uploadSong = new JButton("Upload Songs");
         JButton downloadButton = new JButton("Download");
         // Creación del contenedor para los botones
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
         buttonPanel.add(playButton);
-        buttonPanel.add(nextButton);
-        buttonPanel.add(refreshButton);
+        buttonPanel.add(stopButton);
         buttonPanel.add(uploadSong);
         buttonPanel.add(downloadButton);
 
@@ -76,45 +77,36 @@ public class Player extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				System.out.println(listOfFiles.length);
-//				System.out.println("PLAY PULSADO: "+ listOfFiles[song].getName());
-//				if(a.getSelectedIndex()>=0) {
-//					song  = a.getSelectedIndex();
-//				}else {
-//					song = a.getFirstVisibleIndex();
-//				}
-//				
-//				try {
-//					clip = AudioSystem.getClip();
-//					clip.open(AudioSystem.getAudioInputStream(listOfFiles[song]));
-//				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
+				
+				if(a.getSelectedIndex()>=0) {
+					song  = a.getSelectedIndex();
+				}else {
+					song = a.getFirstVisibleIndex();
+				}
+				
+				AudioPlayer.playNewAudioClip(listOfFiles[song].getAbsolutePath());
+				stopButton.setText("Stop");
 	            
 				//MAKE THAT SONG PLAYABLE
 			}
 		});
-        nextButton.addActionListener(new ActionListener() {
+        stopButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(song>=0) {
-					if(0==1/*Temporal, here should go someting like "if the list, size() < song+=1*/) {
-						song+=1;
+				try {
+					if(AudioPlayer.playing()) {
+						AudioPlayer.stopAudioClip();
+						stopButton.setText("Resume");
 					}else {
-						song = 0;
+						AudioPlayer.resumeAudioClip();
+						stopButton.setText("Stop");
 					}
-				}else {
-					JOptionPane op = new JOptionPane("No song has been choose", ERROR);
+				} catch (Exception e2) {
+					System.out.println("ERROR!!! Not able to stop");
 				}
-			}
-		});
-        refreshButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// DONT KNOW WHAT TO DO HERE.
+				
+				
 				
 			}
 		});
