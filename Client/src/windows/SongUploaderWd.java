@@ -72,7 +72,7 @@ public class SongUploaderWd extends JFrame {
 
             }
         });
-        JButton returnToP = new JButton("Play songs");
+        JButton returnToP = new JButton("Back");
         returnToP.addActionListener(new ActionListener() {
 			
 			@Override

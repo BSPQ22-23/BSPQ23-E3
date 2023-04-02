@@ -7,10 +7,15 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -26,6 +31,7 @@ public class Player extends JFrame{
 	private Player p = null;
 	private static final long serialVersionUID = 1L;
 	private int song = -1;
+	Clip clip;
 //	public static void main(String[] args) {
 //		
 //	}
@@ -70,11 +76,22 @@ public class Player extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(a.getSelectedIndex()>=0) {
-					song  = a.getSelectedIndex();
-				}else {
-					song = a.getFirstVisibleIndex();
-				}
+//				System.out.println(listOfFiles.length);
+//				System.out.println("PLAY PULSADO: "+ listOfFiles[song].getName());
+//				if(a.getSelectedIndex()>=0) {
+//					song  = a.getSelectedIndex();
+//				}else {
+//					song = a.getFirstVisibleIndex();
+//				}
+//				
+//				try {
+//					clip = AudioSystem.getClip();
+//					clip.open(AudioSystem.getAudioInputStream(listOfFiles[song]));
+//				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+	            
 				//MAKE THAT SONG PLAYABLE
 			}
 		});

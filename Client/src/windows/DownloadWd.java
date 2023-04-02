@@ -51,10 +51,12 @@ public class DownloadWd extends JFrame{
         // Creación de los botones
         JButton refreshButton = new JButton("Refresh");
         JButton downloadButton = new JButton("Download");
+        JButton backButton = new JButton("Back");
         // Creación del contenedor para los botones
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
         buttonPanel.add(refreshButton);
         buttonPanel.add(downloadButton);
+        buttonPanel.add(backButton);
 
         // Añadir la lista y los botones al contenedor principal
         contentPane.add(scrollPane, BorderLayout.CENTER);
@@ -79,6 +81,16 @@ public class DownloadWd extends JFrame{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+			}
+		});
+        backButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// DONT KNOW WHAT TO DO HERE.
+				dispose();
+				new Player();
+				
 			}
 		});
         setVisible(true);
