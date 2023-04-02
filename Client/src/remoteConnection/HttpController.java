@@ -107,7 +107,6 @@ public class HttpController {
 		for(int i = 0; i < list.length; i++) {
 			returnList.add(list[i]);
 		}
-		System.out.println(returnList.get(1));
 		return returnList;
 		
 	}

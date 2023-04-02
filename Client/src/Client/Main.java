@@ -1,5 +1,6 @@
 package Client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import audioManagement.AudioPlayer;
@@ -12,8 +13,11 @@ public class Main {
 		public static void main(String[] args){
 			try {
 				HttpController.setService("127.0.0.1",8000);
-				HttpController.recieveAvilableSongNames();
-				
+				ArrayList<String> a = new ArrayList<String>();
+				for(String i: HttpController.recieveAvilableSongNames()) {
+					a.add(i);
+					System.out.println(i);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
