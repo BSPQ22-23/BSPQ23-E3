@@ -14,6 +14,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -46,12 +47,23 @@ public class HttpController {
 		return response;
 	}
 	
+	/**
+	 * 
+	 * @param file Path of the selected file
+	 * @param album Name of the album of the song
+	 * @return String with the response from the server
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
 	
-	public static HttpResponse<String> sendFile(String file, String method) throws IOException, URISyntaxException, InterruptedException, ExecutionException {
-		DataInputStream dis = new DataInputStream(new FileInputStream("audios/"+file));
+	public static HttpResponse<String> sendFile(String file, String album) throws IOException, URISyntaxException, InterruptedException, ExecutionException {
+		DataInputStream dis = new DataInputStream(new FileInputStream(file));
 		HttpRequest.Builder request = HttpRequest.newBuilder()
-				  .uri(new URI(destination + method))
+				  .uri(new URI(destination + "audioSend"))
 				  .header("songName", new File(file).getName())
+				  .header("songAlbum", album)
 				  .POST(BodyPublishers.ofByteArray(Base64.getEncoder().encode(dis.readAllBytes())));	
 		
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
@@ -60,9 +72,18 @@ public class HttpController {
 		
     }
 	
-	public static void recieveFile(String file, String method) throws IOException, URISyntaxException, InterruptedException, ExecutionException{
+	/**
+	 * 
+	 * @param file Name of the desired file
+	 * 
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
+	public static void recieveFile(String file) throws IOException, URISyntaxException, InterruptedException, ExecutionException{
 		HttpRequest.Builder request = HttpRequest.newBuilder()
-				  .uri(new URI(destination + method))
+				  .uri(new URI(destination +"audioAsk"))
 				  .header("songName", file)
 				  .GET();
 		
@@ -71,6 +92,23 @@ public class HttpController {
 		
 		dos.write(Base64.getDecoder().decode(response.body().getBytes()));
 		dos.close();
+		
+	}
+	
+	public static ArrayList<String> recieveAvilableSongNames() throws URISyntaxException, InterruptedException, ExecutionException {
+		HttpRequest.Builder request = HttpRequest.newBuilder()
+				  .uri(new URI(destination +"avilableSongSend"))
+				  .header("Try", "Sending Songs")
+				  .GET();
+		
+		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
+		String[] list = response.body().split("#");
+		ArrayList<String> returnList = new ArrayList<String>();
+		for(int i = 0; i < list.length; i++) {
+			returnList.add(list[i]);
+		}
+		System.out.println(returnList.get(1));
+		return returnList;
 		
 	}
 	

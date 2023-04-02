@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import remoteConnection.HttpController;
+
 public class SongUploaderWd extends JFrame {
     private JTextField nameField;
     private JButton fileButton;
@@ -41,7 +43,7 @@ public class SongUploaderWd extends JFrame {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     selectedFile = fileChooser.getSelectedFile();
                     System.out.println(selectedFile.getName());
-                    fileButText = "Choose file (" + selectedFile.getName() +")";
+                    fileButText = "Choose file (" + selectedFile.getAbsolutePath() +")";
                     fileButton.setText(fileButText);
                     // do something with the selected file
                 }
@@ -60,6 +62,13 @@ public class SongUploaderWd extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // handle form submission
+            	
+            	try {
+            		HttpController.sendFile(selectedFile.getAbsolutePath(), secondNameField.getText());
+            	}catch(Exception f) {
+            		f.printStackTrace();
+            	}
+            	
 
             }
         });

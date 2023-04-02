@@ -4,11 +4,21 @@ import java.util.HashMap;
 
 import audioManagement.AudioPlayer;
 import remoteConnection.HttpController;
+import windows.Player;
 
 //curl 127.0.0.1:8000/test
 public class Main {
 		
-//		public static void main(String[] args){
+		public static void main(String[] args){
+			try {
+				HttpController.setService("127.0.0.1",8000);
+				HttpController.recieveAvilableSongNames();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			new Player();
 //			try {
 //				
 //				HttpController.setService("127.0.0.1",8000);//Create Connection
@@ -34,6 +44,6 @@ public class Main {
 //			}
 //			
 //			
-//		}
+		}
 //		
 }

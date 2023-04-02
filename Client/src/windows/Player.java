@@ -23,9 +23,9 @@ public class Player extends JFrame{
 	private Player p = null;
 	private static final long serialVersionUID = 1L;
 	private int song = -1;
-	public static void main(String[] args) {
-		new Player();
-	}
+//	public static void main(String[] args) {
+//		
+//	}
 	public Player() {
 		p = this;
 		setTitle("AudioPlayer");
