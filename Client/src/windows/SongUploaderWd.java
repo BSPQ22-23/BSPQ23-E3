@@ -24,7 +24,7 @@ public class SongUploaderWd extends JFrame {
     public static void main(String[] args) {
     	new Player();
 	}
-    public SongUploaderWd() {
+    public SongUploaderWd(Player player) {
         super("Song Uploader");
 
         // create the label and text field for the first name
@@ -66,13 +66,24 @@ public class SongUploaderWd extends JFrame {
 
             }
         });
-
+        JButton returnToP = new JButton("Play songs");
+        returnToP.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				player.setVisible(true);
+				player.validate();
+				
+			}
+		});
         // create the main panel and add the components to it
         JPanel mainPanel = new JPanel(new GridLayout(4, 1));
         mainPanel.add(namePanel);
         mainPanel.add(fileButton);
         mainPanel.add(secondNamePanel);
         mainPanel.add(submitButton);
+        mainPanel.add(returnToP);
 
         // add the main panel to the frame and set its size
         getContentPane().add(mainPanel);

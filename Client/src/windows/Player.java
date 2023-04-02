@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -22,10 +20,12 @@ public class Player extends JFrame{
 	 * 
 	 */
 	private ArrayList<String> items = new ArrayList<String>();
+	private Player p = null;
 	private static final long serialVersionUID = 1L;
 	private int song = -1;
 	
 	public Player() {
+		p = this;
 		setTitle("AudioPlayer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
@@ -43,7 +43,7 @@ public class Player extends JFrame{
         JButton playButton = new JButton("Play");
         JButton nextButton = new JButton("Stop");
         JButton refreshButton = new JButton("Refresh");
-
+        JButton uploadSong = new JButton("Uploaad Songs");
         // Creación del contenedor para los botones
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
         buttonPanel.add(playButton);
@@ -86,6 +86,14 @@ public class Player extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// DONT KNOW WHAT TO DO HERE.
+				
+			}
+		});
+        uploadSong.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new SongUploaderWd(p);
 				
 			}
 		});
