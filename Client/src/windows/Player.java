@@ -4,6 +4,8 @@ package windows;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -11,6 +13,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -18,9 +21,9 @@ public class Player extends JFrame{
 	/**
 	 * 
 	 */
-	ArrayList<String> items = new ArrayList<String>();
+	private ArrayList<String> items = new ArrayList<String>();
 	private static final long serialVersionUID = 1L;
-
+	private int song = -1;
 	
 	public Player() {
 		setTitle("AudioPlayer");
@@ -51,8 +54,41 @@ public class Player extends JFrame{
         contentPane.add(scrollPane, BorderLayout.CENTER);
         contentPane.add(buttonPanel, BorderLayout.SOUTH);
         
-        
-
+        playButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(a.getSelectedIndex()>=0) {
+					song  = a.getSelectedIndex();
+				}else {
+					song = a.getFirstVisibleIndex();
+				}
+				//MAKE THAT SONG PLAYABLE
+			}
+		});
+        nextButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(song>=0) {
+					if(0==1/*Temporal, here should go someting like "if the list, size() < song+=1*/) {
+						song+=1;
+					}else {
+						song = 0;
+					}
+				}else {
+					JOptionPane op = new JOptionPane("No song has been choose", ERROR);
+				}
+			}
+		});
+        refreshButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// DONT KNOW WHAT TO DO HERE.
+				
+			}
+		});
         // Mostrar la ventana
         setVisible(true);
 	}

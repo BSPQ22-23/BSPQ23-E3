@@ -16,7 +16,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-        server.createContext("/audioSend", new RecieveFileFromClientHandler()); //Si le llega un mensaje con esto, hace lo que se llama
+        server.createContext("/audioSend", new RecieveFileFromClientHandler()); //If a message arrives, does what it orders
         server.createContext("/audioAsk", new SendMusicToClientHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
