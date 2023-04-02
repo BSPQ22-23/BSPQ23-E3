@@ -23,12 +23,14 @@ public class Player extends JFrame{
 	private Player p = null;
 	private static final long serialVersionUID = 1L;
 	private int song = -1;
-	
+	public static void main(String[] args) {
+		new Player();
+	}
 	public Player() {
 		p = this;
 		setTitle("AudioPlayer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setSize(500, 350);
 
         // Creación del contenedor principal
         Container contentPane = getContentPane();
@@ -43,12 +45,13 @@ public class Player extends JFrame{
         JButton playButton = new JButton("Play");
         JButton nextButton = new JButton("Stop");
         JButton refreshButton = new JButton("Refresh");
-        JButton uploadSong = new JButton("Uploaad Songs");
+        JButton uploadSong = new JButton("Upload Songs");
         // Creación del contenedor para los botones
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
         buttonPanel.add(playButton);
         buttonPanel.add(nextButton);
         buttonPanel.add(refreshButton);
+        buttonPanel.add(uploadSong);
 
         // Añadir la lista y los botones al contenedor principal
         contentPane.add(scrollPane, BorderLayout.CENTER);
@@ -93,6 +96,7 @@ public class Player extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 				new SongUploaderWd(p);
 				
 			}

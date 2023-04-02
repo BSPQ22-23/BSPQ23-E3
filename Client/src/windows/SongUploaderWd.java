@@ -21,9 +21,6 @@ public class SongUploaderWd extends JFrame {
     private JTextField secondNameField;
     private File selectedFile;
     String fileButText;
-    public static void main(String[] args) {
-    	new Player();
-	}
     public SongUploaderWd(Player player) {
         super("Song Uploader");
 
