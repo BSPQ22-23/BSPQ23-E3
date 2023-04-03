@@ -19,7 +19,7 @@ import com.sun.net.httpserver.HttpServer;
 public class Main {
 	public static void main(String[] args) throws Exception {
 		
-		Files.createDirectories(Paths.get("/audios"));
+		Files.createDirectories(Paths.get("./audios"));
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         server.createContext("/audioSend", new RecieveFileFromClientHandler()); //If a message arrives, does what it orders
         server.createContext("/audioAsk", new SendMusicToClientHandler());

@@ -14,7 +14,7 @@ public class Main {
 		
 		public static void main(String[] args){
 			try {
-				Files.createDirectories(Paths.get("/audios"));
+				Files.createDirectories(Paths.get("./audios"));
 				HttpController.setService("127.0.0.1",8000);
 				ArrayList<String> a = new ArrayList<String>();
 				for(String i: HttpController.recieveAvilableSongNames()) {
