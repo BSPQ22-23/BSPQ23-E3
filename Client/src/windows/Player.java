@@ -106,8 +106,6 @@ public class Player extends JFrame{
 					System.out.println("ERROR!!! Not able to stop");
 				}
 				
-				
-				
 			}
 		});
         uploadSong.addActionListener(new ActionListener() {
