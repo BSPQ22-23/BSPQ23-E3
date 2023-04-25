@@ -246,5 +246,57 @@ public class Main {
     		}
     	}
     }
+    
+    static class LoginHandler implements HttpHandler{
+    	@Override
+    	public void handle(HttpExchange t) {
+    		try {
+    			List<String> a = t.getRequestHeaders().getOrDefault("Name", List.of(""));
+    			List<String> b = t.getRequestHeaders().getOrDefault("Password", List.of(""));
+    			String s = "ok";
+    			//TODO login funcionality
+    			
+    			               
+                t.sendResponseHeaders(200, s.length());
+                  
+                OutputStream os = t.getResponseBody();
+               
+                
+                             
+                os.write(s.getBytes());
+               
+                os.close();
+    			
+    		}catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    }
+    
+    static class RegisterHandler implements HttpHandler{
+    	@Override
+    	public void handle(HttpExchange t) {
+    		try {
+    			List<String> a = t.getRequestHeaders().getOrDefault("Name", List.of(""));
+    			List<String> b = t.getRequestHeaders().getOrDefault("Password", List.of(""));
+    			String s = "ok";
+    			//TODO register funcionality
+    			
+    			               
+                t.sendResponseHeaders(200, s.length());
+                  
+                OutputStream os = t.getResponseBody();
+               
+                
+                             
+                os.write(s.getBytes());
+               
+                os.close();
+    			
+    		}catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    }
 
 }

@@ -197,4 +197,49 @@ public class HttpController {
 		return returnList;
 	}
 	
+	//HTTP for login/register
+	/**
+	 * 
+	 * @param name - Name of the account for logging
+	 * @param password - Password of the given account
+	 * @return if the login has been correctly performed
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
+	public static boolean login(String name, String password) throws URISyntaxException, InterruptedException, ExecutionException{
+		HttpRequest.Builder request = HttpRequest.newBuilder()
+				  .uri(new URI(destination +"Login"))
+				  .header("Name", name)
+				  .header("Password", password)
+				  .GET();
+		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
+		if(response.body() == "ok") {
+			return true;
+		}
+		return false;
+	}
+	//TODO posiblemente añadir más data
+	/**
+	 * 
+	 * @param name - Name of the account to register
+	 * @param password - Password of the account to register
+	 * @return if the register has been correctly performed
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
+	public static boolean register(String name, String password) throws URISyntaxException, InterruptedException, ExecutionException{
+		HttpRequest.Builder request = HttpRequest.newBuilder()
+				  .uri(new URI(destination +"Register"))
+				  .header("Name", name)
+				  .header("Password", password)
+				  .GET();
+		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
+		if(response.body() == "ok") {
+			return true;
+		}
+		return false;
+	}
+	
 }
