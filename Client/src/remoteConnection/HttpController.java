@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 
+
+
 public class HttpController {
 	private static String destination;
 	private static HttpClient client = HttpClient.newHttpClient();
@@ -94,7 +96,13 @@ public class HttpController {
 		dos.close();
 		
 	}
-	
+	/**
+	 * 
+	 * @return All the available songs in the server
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
 	public static ArrayList<String> recieveAvilableSongNames() throws URISyntaxException, InterruptedException, ExecutionException {
 		HttpRequest.Builder request = HttpRequest.newBuilder()
 				  .uri(new URI(destination +"avilableSongSend"))
@@ -109,6 +117,84 @@ public class HttpController {
 		}
 		return returnList;
 		
+	}
+	/**
+	 * 
+	 * @param playList- Name of the desired playlist
+	 * @return All the songs contained in the especified playlist
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
+	public static ArrayList<String> recievePlaylistSongs(String playList) throws URISyntaxException, InterruptedException, ExecutionException{
+		HttpRequest.Builder request = HttpRequest.newBuilder()
+				  .uri(new URI(destination +"getPlaylistSongs"))
+				  .header("ListName", playList)
+				  .GET();
+		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
+		String[] list = response.body().split("#");
+		ArrayList<String> returnList = new ArrayList<String>();
+		for(int i = 0; i < list.length; i++) {
+			returnList.add(list[i]);
+		}
+		return returnList;
+	}
+	
+	/**
+	 * 
+	 * @param playList - name of the playlist to create
+	 * @return if the playlist has been succesfully created
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
+	public static boolean createPlaylist(String playList) throws URISyntaxException, InterruptedException, ExecutionException{
+		HttpRequest.Builder request = HttpRequest.newBuilder()
+				  .uri(new URI(destination +"createPlaylist"))
+				  .header("ListName", playList)
+				  .GET();
+		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
+		if(response.body() == "ok") {
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * 
+	 * @param song - Name of the song to add to the specified playlist
+	 * @param playList - Name of the playlist we want to add a song into
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
+	public static void addSongToPlaylist(String song, String playList) throws URISyntaxException, InterruptedException, ExecutionException{
+		HttpRequest.Builder request = HttpRequest.newBuilder()
+				  .uri(new URI(destination +"addSongToPlaylist"))
+				  .header("ListName", playList)
+				  .header("SongName", song)
+				  .GET();
+		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
+		System.out.println(response.body());
+	}
+	/**
+	 * 
+	 * @return Names of all the existing playlists in the server
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
+	public static ArrayList<String> getPlaylists() throws URISyntaxException, InterruptedException, ExecutionException{
+		HttpRequest.Builder request = HttpRequest.newBuilder()
+				  .uri(new URI(destination +"getPlaylists"))
+				  .header("Playlist", "")
+				  .GET();
+		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
+		ArrayList<String> returnList = new ArrayList<String>();
+		String[] list = response.body().split("#");
+		for(int i = 0; i < list.length; i++) {
+			returnList.add(list[i]);
+		}
+		return returnList;
 	}
 	
 }

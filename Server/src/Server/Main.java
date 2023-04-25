@@ -16,6 +16,9 @@ import java.util.List;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+
+import data.Playlist;
+import data.Song;
 public class Main {
 	public static void main(String[] args) throws Exception {
 		
@@ -24,6 +27,10 @@ public class Main {
         server.createContext("/audioSend", new RecieveFileFromClientHandler()); //If a message arrives, does what it orders
         server.createContext("/audioAsk", new SendMusicToClientHandler());
         server.createContext("/avilableSongSend", new SendAvilableSongsHandler());
+        server.createContext("/getPlaylistSongs", new SendPlaylistSongs());
+        server.createContext("/createPlaylist", new CreatePlaylist());
+        server.createContext("/addSongToPlaylist", new AddSongToPlaylist());
+        server.createContext("/getPlaylists", new GetPlaylists());
         server.setExecutor(null); // creates a default executor
         server.start();
         System.out.println("Server started...");
@@ -135,6 +142,109 @@ public class Main {
         	
         }
     }
+    
+    static class SendPlaylistSongs implements HttpHandler{
+    	@Override
+    	public void handle(HttpExchange t) {
+    		try {
+        	
+        		String names = "";
+        		
+        		
+        		
+        		List<String> a = t.getRequestHeaders().getOrDefault("ListName", List.of(""));
+        		System.out.println(a.get(0));
+        		for(Song f : Playlist.getPlaylist(a.get(0)).getSongs()) {
+        			names+="#" + f.getName();
+        			
+        		}
+                t.sendResponseHeaders(200, names.length());
+                  
+                OutputStream os = t.getResponseBody();
+               
+                
+                             
+                os.write(names.getBytes());
+               
+                os.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}
+    }
 
+    static class CreatePlaylist implements HttpHandler{
+    	@Override
+    	public void handle(HttpExchange t) {
+    		try {
+            	 		
+        		
+        		
+        		List<String> a = t.getRequestHeaders().getOrDefault("ListName", List.of(""));
+        		System.out.println(a.get(0));
+        		Playlist.createPlaylist(a.get(0));
+                t.sendResponseHeaders(200, 2);
+                  
+                OutputStream os = t.getResponseBody();
+               
+                String s = "ok";
+                             
+                os.write(s.getBytes());
+               
+                os.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}
+    }
+    
+    static class AddSongToPlaylist implements HttpHandler{
+    	@Override
+    	public void handle(HttpExchange t) {
+    		try {
+    		List<String> a = t.getRequestHeaders().getOrDefault("ListName", List.of(""));
+    		List<String> b = t.getRequestHeaders().getOrDefault("SongName", List.of(""));
+    		Playlist.addSongToPlaylist(a.get(0),b.get(0));
+    		t.sendResponseHeaders(200, 2);
+            
+            OutputStream os = t.getResponseBody();
+           
+            String s = "ok";
+                         
+            os.write(s.getBytes());
+           
+            os.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}
+    }
+    
+    static class GetPlaylists implements HttpHandler{
+    	@Override
+    	public void handle(HttpExchange t) {
+    		try {
+    			List<String> a = t.getRequestHeaders().getOrDefault("Playlist", List.of(""));
+    			
+    			String names = "";
+    			for(Playlist p : Playlist.getAllPlaylists().values()) {
+    				names += "#"+p.getName();
+    			}
+    			               
+                t.sendResponseHeaders(200, names.length());
+                  
+                OutputStream os = t.getResponseBody();
+               
+                
+                             
+                os.write(names.getBytes());
+               
+                os.close();
+    			
+    		}catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    }
 
 }
