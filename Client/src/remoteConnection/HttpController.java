@@ -196,6 +196,29 @@ public class HttpController {
 		}
 		return returnList;
 	}
+	public static boolean deleteSong(String name) throws URISyntaxException, InterruptedException, ExecutionException {
+		HttpRequest.Builder request = HttpRequest.newBuilder()
+				  .uri(new URI(destination +"DeleteSong"))
+				  .header("Name", name)
+				  .GET();
+		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
+		if(response.body() == "ok") {
+			return true;
+		}
+		return false;
+	}
+	public static String deletePlaylist(String name) throws URISyntaxException, InterruptedException, ExecutionException{
+		HttpRequest.Builder request = HttpRequest.newBuilder()
+				  .uri(new URI(destination +"DeletePlaylist"))
+				  .header("Name", name)
+				  .GET();
+		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
+		
+		return response.body();
+			
+	}
+	
+	
 	
 	//HTTP for login/register
 	/**

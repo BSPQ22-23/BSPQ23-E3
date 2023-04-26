@@ -31,29 +31,13 @@ public class Main {
         server.createContext("/createPlaylist", new CreatePlaylist());
         server.createContext("/addSongToPlaylist", new AddSongToPlaylist());
         server.createContext("/getPlaylists", new GetPlaylists());
+        server.createContext("/DeleteSong", new DeleteSong());
+        server.createContext("/DeletePlaylist", new DeletePlaylist());
         server.setExecutor(null); // creates a default executor
         server.start();
         System.out.println("Server started...");
     }
 
-    static class MyHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange t) {
-        	try {
-        		List<String> a = t.getRequestHeaders().getOrDefault("user", List.of(""));
-            	System.out.println(a.get(0));
-            	String response = "This is the response";
-                t.sendResponseHeaders(200, response.length());
-                OutputStream os = t.getResponseBody();
-                os.write(response.getBytes());
-                os.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-        	
-        }
-        
-    }
     static class RecieveFileFromClientHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange t) {
@@ -172,6 +156,34 @@ public class Main {
 			}
     	}
     }
+    static class DeleteSong implements HttpHandler{
+    	@Override
+    	public void handle(HttpExchange t) {
+    		try {
+    			List<String> a = t.getRequestHeaders().getOrDefault("Name", List.of(""));
+    			File f = new File("audios/"+a.get(0));
+    			String response;
+    			if(f.delete()) {
+    				System.out.println("Deleted " + a.get(0));
+    				response = "ok";
+    			} else {
+    				response = "not ok";
+    			}
+    			
+    			 t.sendResponseHeaders(200, response.length());
+                 
+                 OutputStream os = t.getResponseBody();
+                
+                 
+                              
+                 os.write(response.getBytes());
+                
+                 os.close();
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    }
 
     static class CreatePlaylist implements HttpHandler{
     	@Override
@@ -280,6 +292,38 @@ public class Main {
     			List<String> a = t.getRequestHeaders().getOrDefault("Name", List.of(""));
     			List<String> b = t.getRequestHeaders().getOrDefault("Password", List.of(""));
     			String s = "ok";
+    			//TODO register funcionality
+    			
+    			               
+                t.sendResponseHeaders(200, s.length());
+                  
+                OutputStream os = t.getResponseBody();
+               
+                
+                             
+                os.write(s.getBytes());
+               
+                os.close();
+    			
+    		}catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    }
+    
+    static class DeletePlaylist implements HttpHandler{
+    	@Override
+    	public void handle(HttpExchange t) {
+    		try {
+    			List<String> a = t.getRequestHeaders().getOrDefault("Name", List.of(""));
+    			
+    			String s = "NaN";
+    			if(Playlist.getAllPlaylists().remove(a.get(0)) == null) {
+    				s = "delted";
+    			}else {
+    				s = "Non existent";
+    			}
+    			
     			//TODO register funcionality
     			
     			               
