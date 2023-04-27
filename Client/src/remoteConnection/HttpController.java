@@ -197,6 +197,8 @@ public class HttpController {
 		return returnList;
 	}
 	public static boolean deleteSong(String name) throws URISyntaxException, InterruptedException, ExecutionException {
+		File f = new File("audios/"+name);
+		f.delete();
 		HttpRequest.Builder request = HttpRequest.newBuilder()
 				  .uri(new URI(destination +"DeleteSong"))
 				  .header("Name", name)
