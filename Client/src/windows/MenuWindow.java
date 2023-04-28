@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import java.awt.Color;
 
@@ -53,11 +56,36 @@ public class MenuWindow {
 		frmMenu.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JButton resgisterButton = new JButton("REGISTER");
-		resgisterButton.setForeground(new Color(255, 255, 255));
-		resgisterButton.setBackground(new Color(128, 128, 128));
-		resgisterButton.setBounds(175, 11, 116, 31);
-		panel.add(resgisterButton);
+		JButton registerButton = new JButton("REGISTER");
+		registerButton.setForeground(new Color(255, 255, 255));
+		registerButton.setBackground(new Color(128, 128, 128));
+		registerButton.setBounds(175, 11, 116, 31);
+		panel.add(registerButton);
+		
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new LoginWindow();
+					frmMenu.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		registerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new RegisterWindow();
+					frmMenu.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		frmMenu.setVisible(true);
 	}
-
 }

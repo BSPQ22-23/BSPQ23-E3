@@ -91,6 +91,18 @@ public class LoginWindow {
 		
 		panel_2.add(loginButton);
 		
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new MenuWindow();
+					frmLogin.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -102,5 +114,7 @@ public class LoginWindow {
 				}
 			}
 		});
+		
+		frmLogin.setVisible(true);
 	}
 }

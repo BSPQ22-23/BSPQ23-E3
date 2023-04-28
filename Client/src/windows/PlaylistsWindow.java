@@ -70,15 +70,18 @@ public class PlaylistsWindow {
 		newPlaylistButton.setBounds(198, 81, 189, 23);
 		panel_1.add(newPlaylistButton);
 		
-		newPlaylistButton.addActionListener(new ActionListener() {
-			
-			@Override
+		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				dispose();
-				new UserWindow();
-				
+				try {
+					new UserWindow();
+					frmMyPlaylists.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
+		
+		frmMyPlaylists.setVisible(true);
 	}
-
 }

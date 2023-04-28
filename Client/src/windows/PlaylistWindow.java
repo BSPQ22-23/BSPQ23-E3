@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -63,6 +66,20 @@ public class PlaylistWindow {
 		deleteButton.setForeground(new Color(255, 255, 255));
 		deleteButton.setBackground(new Color(128, 128, 128));
 		panel_1.add(deleteButton);
+		
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new PlaylistsWindow();
+					frmPlaylist.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		frmPlaylist.setVisible(true);
 	}
 
 }

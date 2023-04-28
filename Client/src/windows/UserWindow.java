@@ -58,27 +58,23 @@ public class UserWindow {
 		panel_3.setForeground(new Color(0, 0, 0));
 		frmUser.getContentPane().add(panel_3);
 		
-		JButton btnNewButton = new JButton("SONG CATALOG");
-		btnNewButton.setBounds(159, 21, 155, 34);
-		btnNewButton.setBackground(new Color(128, 128, 128));
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		JButton songCatalogButton = new JButton("SONG CATALOG");
+		songCatalogButton.setBounds(159, 21, 155, 34);
+		songCatalogButton.setBackground(new Color(128, 128, 128));
+		songCatalogButton.setForeground(new Color(255, 255, 255));
 		panel_3.setLayout(null);
-		panel_3.add(btnNewButton);
+		panel_3.add(songCatalogButton);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(128, 0, 64));
 		frmUser.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton btnNewButton_1 = new JButton("ARTIST CATALOG");
-		btnNewButton_1.setBounds(160, 11, 155, 32);
-		btnNewButton_1.setBackground(new Color(128, 128, 128));
-		btnNewButton_1.setForeground(new Color(255, 255, 255));
-		panel_1.add(btnNewButton_1);
+		JButton artistCatalogButton = new JButton("ARTIST CATALOG");
+		artistCatalogButton.setBounds(160, 11, 155, 32);
+		artistCatalogButton.setBackground(new Color(128, 128, 128));
+		artistCatalogButton.setForeground(new Color(255, 255, 255));
+		panel_1.add(artistCatalogButton);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(128, 0, 64));
@@ -90,6 +86,54 @@ public class UserWindow {
 		logOutButton.setForeground(new Color(255, 255, 255));
 		logOutButton.setBackground(new Color(128, 128, 128));
 		panel_2.add(logOutButton);
+		
+		myPlaylistsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new PlaylistsWindow();
+					frmUser.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		songCatalogButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new SongCatalogWindow();
+					frmUser.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		artistCatalogButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new ArtistCatalogWindow();
+					frmUser.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		logOutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new MenuWindow();
+					frmUser.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		frmUser.setVisible(true);
 	}

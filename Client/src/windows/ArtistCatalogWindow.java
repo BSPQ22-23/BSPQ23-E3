@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -54,11 +57,24 @@ public class ArtistCatalogWindow {
 		frmArtistCatalog.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton btnNewButton = new JButton("BACK");
-		btnNewButton.setBackground(new Color(128, 128, 128));
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBounds(182, 85, 89, 23);
-		panel_1.add(btnNewButton);
+		JButton backButton = new JButton("BACK");
+		backButton.setBackground(new Color(128, 128, 128));
+		backButton.setForeground(new Color(255, 255, 255));
+		backButton.setBounds(182, 85, 89, 23);
+		panel_1.add(backButton);
+		
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new UserWindow();
+					frmArtistCatalog.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		frmArtistCatalog.setVisible(true);
 	}
-
 }

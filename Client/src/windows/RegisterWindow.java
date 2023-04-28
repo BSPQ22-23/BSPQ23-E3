@@ -7,7 +7,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -88,5 +92,32 @@ public class RegisterWindow {
 		registerButton.setForeground(new Color(255, 255, 255));
 		registerButton.setBackground(new Color(128, 128, 128));
 		panel_2.add(registerButton);
+		
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new MenuWindow();
+					frmRegister.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		registerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					JOptionPane.showMessageDialog(null, "Successfully registered");
+					new MenuWindow();
+					frmRegister.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		frmRegister.setVisible(true);
 	}
 }
