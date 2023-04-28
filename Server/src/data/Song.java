@@ -1,4 +1,6 @@
 package data;
+import javax.jdo.annotations.*;
+
 
 public class Song {
 	private String name;
