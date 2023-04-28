@@ -3,13 +3,16 @@ package data;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.jdo.annotations.Join;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+
+@PersistenceCapable(detachable = "true")
 public class Playlist {
-	
+	@Join
+	@Persistent(defaultFetchGroup = "true")
 	private ArrayList<Song> songList = new ArrayList<Song>();
 	private String name;
-	
-	//Save all the current playlists
-	static HashMap<String, Playlist> listPlaylist = new HashMap<String, Playlist>();
 	
 	public Playlist(String name) {
 		this.name = name;
@@ -27,16 +30,4 @@ public class Playlist {
 		songList.add(s);
 	}
 	
-	static public Playlist getPlaylist(String name) {
-		return listPlaylist.get(name);
-	}
-	static public void createPlaylist(String name) {
-		listPlaylist.put(name, new Playlist(name));
-	}
-	static public void addSongToPlaylist(String list, String song) {
-		listPlaylist.get(list).addSong(new Song(song));
-	}
-	static public HashMap<String, Playlist> getAllPlaylists(){
-		return listPlaylist;
-	}
 }

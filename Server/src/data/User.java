@@ -2,6 +2,9 @@ package data;
 
 import java.util.ArrayList;
 
+import javax.jdo.annotations.PersistenceCapable;
+
+@PersistenceCapable(detachable = "true")
 public class User {
 
 	private String username;
@@ -10,7 +13,6 @@ public class User {
 	private boolean admin = false;
 	
 	
-	//TODO
 	
 	public void addSong(Song song) {
 		

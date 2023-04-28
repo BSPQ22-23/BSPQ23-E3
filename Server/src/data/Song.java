@@ -1,7 +1,7 @@
 package data;
 import javax.jdo.annotations.*;
 
-
+@PersistenceCapable(detachable = "true")
 public class Song {
 	private String name;
 	
