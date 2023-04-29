@@ -154,7 +154,7 @@ public class HttpController {
 				  .header("ListName", playList)
 				  .GET();
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
-		if(response.body() == "ok") {
+		if(response.body().equals("ok")) {
 			return true;
 		}
 		return false;
@@ -204,7 +204,7 @@ public class HttpController {
 				  .header("Name", name)
 				  .GET();
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
-		if(response.body() == "ok") {
+		if(response.body().equals("ok")) {
 			return true;
 		}
 		return false;
@@ -239,7 +239,7 @@ public class HttpController {
 				  .header("Password", password)
 				  .GET();
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
-		if(response.body() == "ok") {
+		if(response.body().equals("ok")) {
 			return true;
 		}
 		return false;
@@ -261,7 +261,7 @@ public class HttpController {
 				  .header("Password", password)
 				  .GET();
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
-		if(response.body() == "ok") {
+		if(response.body().equals("ok")) {
 			return true;
 		}
 		return false;

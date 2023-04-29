@@ -51,7 +51,11 @@ public class AudioPlayer {
 		return clipTime;
 	}
 	public static Boolean playing() {
-		return clip.isRunning();
+		if(clip != null) {
+			return clip.isRunning();
+		}
+		return false;
+		
 	}
 	public static Boolean active() {
 		return clip.isActive();

@@ -16,21 +16,22 @@ import java.awt.Font;
 public class ArtistCatalogWindow {
 
 	private JFrame frmArtistCatalog;
+	private String token;
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					ArtistCatalogWindow window = new ArtistCatalogWindow();
+//					window.frmArtistCatalog.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ArtistCatalogWindow window = new ArtistCatalogWindow();
-					window.frmArtistCatalog.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public ArtistCatalogWindow() {
+	public ArtistCatalogWindow(String token) {
+		this.token = token;
 		initialize();
 	}
 
@@ -66,7 +67,7 @@ public class ArtistCatalogWindow {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new UserWindow();
+					new UserWindow(token);
 					frmArtistCatalog.setVisible(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

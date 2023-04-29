@@ -15,18 +15,18 @@ public class MenuWindow {
 
 	private JFrame frmMenu;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenuWindow window = new MenuWindow();
-					window.frmMenu.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					MenuWindow window = new MenuWindow();
+//					window.frmMenu.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	public MenuWindow() {
 		initialize();

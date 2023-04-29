@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import remoteConnection.HttpController;
+
 import javax.swing.JButton;
 import java.awt.Color;
 
@@ -22,18 +25,18 @@ public class RegisterWindow {
 	private JTextField textField;
 	private JTextField passwordField;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegisterWindow window = new RegisterWindow();
-					window.frmRegister.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					RegisterWindow window = new RegisterWindow();
+//					window.frmRegister.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	public RegisterWindow() {
 		initialize();
@@ -108,7 +111,17 @@ public class RegisterWindow {
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					JOptionPane.showMessageDialog(null, "Successfully registered");
+					
+					textField.getText();
+					boolean a = false;
+					if(!textField.getText().equals("") && !passwordField.getText().equals("")) {
+						a = HttpController.register(textField.getText(), passwordField.getText());
+					}
+					if(a) {
+						JOptionPane.showMessageDialog(null, "Successfully registered");
+					} else {
+						JOptionPane.showMessageDialog(null, "Error");
+					}
 					new MenuWindow();
 					frmRegister.setVisible(false);
 				} catch (Exception e1) {

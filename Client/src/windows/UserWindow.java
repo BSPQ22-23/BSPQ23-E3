@@ -13,21 +13,23 @@ import java.awt.Color;
 public class UserWindow {
 
 	private JFrame frmUser;
+	String token;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UserWindow window = new UserWindow();
-					window.frmUser.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	//	public static void main(String[] args) {
+	//EventQueue.invokeLater(new Runnable() {
+	//	public void run() {
+	//		try {
+	//			UserWindow window = new UserWindow();
+	//			window.frmUser.setVisible(true);
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//		}
+	//	}
+	//});
+	//	}
 
-	public UserWindow() {
+	public UserWindow(String token) {
+		this.token = token;
 		initialize();
 	}
 
@@ -90,7 +92,7 @@ public class UserWindow {
 		myPlaylistsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new PlaylistsWindow();
+					new PlaylistsWindow(token);
 					frmUser.setVisible(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -102,7 +104,7 @@ public class UserWindow {
 		songCatalogButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new SongCatalogWindow();
+					new Player();
 					frmUser.setVisible(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -114,7 +116,7 @@ public class UserWindow {
 		artistCatalogButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new ArtistCatalogWindow();
+					new ArtistCatalogWindow(token);
 					frmUser.setVisible(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

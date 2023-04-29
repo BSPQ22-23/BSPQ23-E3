@@ -6,6 +6,8 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -16,6 +18,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -24,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import audioManagement.AudioPlayer;
+import remoteConnection.HttpController;
 
 public class Player extends JFrame{
 	/**
@@ -33,7 +37,7 @@ public class Player extends JFrame{
 	private Player p = null;
 	private static final long serialVersionUID = 1L;
 	private int song = -1;
-	
+	private JList<String> a;
 	
 //	public static void main(String[] args) {
 //		
@@ -54,17 +58,19 @@ public class Player extends JFrame{
 		for(File i: listOfFiles) {
 			items.add(i.getName());
 		}
-        JList<String> a = new JList<>(items.toArray(new String[0]));
+        a = new JList<>(items.toArray(new String[0]));
         JScrollPane scrollPane = new JScrollPane(a);
 
         // Creación de los botones
-        JButton playButton = new JButton("Play");
+        JButton deleteButton = new JButton("Delete");
         JButton stopButton = new JButton("Stop");
         JButton uploadSong = new JButton("Upload Songs");
         JButton downloadButton = new JButton("Download");
+        JButton backButton = new JButton("Back");
+        
         // Creación del contenedor para los botones
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
-        buttonPanel.add(playButton);
+        buttonPanel.add(deleteButton);
         buttonPanel.add(stopButton);
         buttonPanel.add(uploadSong);
         buttonPanel.add(downloadButton);
@@ -73,19 +79,35 @@ public class Player extends JFrame{
         contentPane.add(scrollPane, BorderLayout.CENTER);
         contentPane.add(buttonPanel, BorderLayout.SOUTH);
         
-        playButton.addActionListener(new ActionListener() {
+        deleteButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				if(a.getSelectedIndex()>=0) {
+					if(AudioPlayer.playing()) {
+						AudioPlayer.stopAudioClip();
+						stopButton.setText("Stop");
+					}
 					song  = a.getSelectedIndex();
-				}else {
-					song = a.getFirstVisibleIndex();
+					File todelete = new File(listOfFiles[song].getAbsolutePath());
+					if(todelete.delete()) {
+						items.remove(song);
+						DefaultListModel<String> model = new DefaultListModel<>();
+						for (String element : items) {
+				            model.addElement(element);
+				        }
+						a.setModel(model);
+						song = -1;
+					}else {
+						System.out.println("ERROR - Could not delete the song");
+					}
+					
+					
+					
 				}
 				
-				AudioPlayer.playNewAudioClip(listOfFiles[song].getAbsolutePath());
-				stopButton.setText("Stop");
+			
 	            
 				//MAKE THAT SONG PLAYABLE
 			}
@@ -131,6 +153,22 @@ public class Player extends JFrame{
 				
 			}
 		});
+        
+        a.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+              
+                	if(a.getSelectedIndex()>=0) {
+    					song  = a.getSelectedIndex();
+    				}else {
+    					song = a.getFirstVisibleIndex();
+    				}
+    				
+    				AudioPlayer.playNewAudioClip(listOfFiles[song].getAbsolutePath());
+    				stopButton.setText("Stop");
+                }
+            }
+        });
         // Mostrar la ventana
         setVisible(true);
         

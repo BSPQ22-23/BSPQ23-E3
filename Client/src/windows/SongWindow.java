@@ -14,21 +14,23 @@ import java.awt.event.ActionEvent;
 public class SongWindow {
 
 	private JFrame frmSong;
+	private String token;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SongWindow window = new SongWindow();
-					window.frmSong.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					SongWindow window = new SongWindow();
+//					window.frmSong.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
-	public SongWindow() {
+	public SongWindow(String token) {
+		this.token = token;
 		initialize();
 	}
 
@@ -73,7 +75,7 @@ public class SongWindow {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new PlaylistWindow();
+					new PlaylistWindow(token);
 					frmSong.setVisible(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

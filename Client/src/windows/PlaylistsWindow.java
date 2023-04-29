@@ -16,21 +16,22 @@ import java.awt.Font;
 public class PlaylistsWindow {
 
 	private JFrame frmMyPlaylists;
+	private String token;
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					PlaylistsWindow window = new PlaylistsWindow();
+//					window.frmMyPlaylists.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PlaylistsWindow window = new PlaylistsWindow();
-					window.frmMyPlaylists.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public PlaylistsWindow() {
+	public PlaylistsWindow(String token) {
+		this.token = token;
 		initialize();
 	}
 
@@ -73,7 +74,7 @@ public class PlaylistsWindow {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new UserWindow();
+					new UserWindow(token);
 					frmMyPlaylists.setVisible(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

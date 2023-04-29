@@ -33,6 +33,8 @@ public class Main {
         server.createContext("/getPlaylists", new GetPlaylists());
         server.createContext("/DeleteSong", new DeleteSong());
         server.createContext("/DeletePlaylist", new DeletePlaylist());
+        server.createContext("/Register", new RegisterHandler());
+        server.createContext("/Login", new LoginHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
         System.out.println("Server started...");
@@ -292,6 +294,7 @@ public class Main {
     			List<String> a = t.getRequestHeaders().getOrDefault("Name", List.of(""));
     			List<String> b = t.getRequestHeaders().getOrDefault("Password", List.of(""));
     			String s = "ok";
+    			System.out.println("Registered: " + a + " pass: " + b);
     			//TODO register funcionality
     			
     			               
@@ -304,6 +307,7 @@ public class Main {
                 os.write(s.getBytes());
                
                 os.close();
+                
     			
     		}catch (Exception e) {
     			e.printStackTrace();

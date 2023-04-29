@@ -15,21 +15,22 @@ import java.awt.Color;
 public class PlaylistWindow {
 
 	private JFrame frmPlaylist;
+	private String token;
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					PlaylistWindow window = new PlaylistWindow();
+//					window.frmPlaylist.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PlaylistWindow window = new PlaylistWindow();
-					window.frmPlaylist.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public PlaylistWindow() {
+	public PlaylistWindow(String token) {
+		this.token = token;
 		initialize();
 	}
 
@@ -70,7 +71,7 @@ public class PlaylistWindow {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new PlaylistsWindow();
+					new UserWindow(token);
 					frmPlaylist.setVisible(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

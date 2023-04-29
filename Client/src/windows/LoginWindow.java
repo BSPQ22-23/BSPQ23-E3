@@ -6,7 +6,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import remoteConnection.HttpController;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,18 +24,18 @@ public class LoginWindow {
 	private JTextField textField;
 	private JTextField passwordField_1;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginWindow window = new LoginWindow();
-					window.frmLogin.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					LoginWindow window = new LoginWindow();
+//					window.frmLogin.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	public LoginWindow() {
 		initialize();
@@ -106,8 +111,18 @@ public class LoginWindow {
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new UserWindow();
-					frmLogin.setVisible(false);
+					boolean a = false;
+					if(!textField.getText().equals("") && !passwordField_1.getText().equals("")) {
+						a = HttpController.login(textField.getText(), passwordField_1.getText());
+					}
+					if(a) {
+						new UserWindow("a");
+						frmLogin.setVisible(false);
+					}else {
+						JOptionPane.showMessageDialog(null, "Error");
+					}
+					
+					
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

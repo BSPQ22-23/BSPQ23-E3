@@ -7,7 +7,10 @@ import java.util.HashMap;
 
 import audioManagement.AudioPlayer;
 import remoteConnection.HttpController;
+import windows.MenuWindow;
 import windows.Player;
+import windows.RegisterWindow;
+import windows.UserWindow;
 
 //curl 127.0.0.1:8000/test
 public class Main {
@@ -25,7 +28,7 @@ public class Main {
 				e.printStackTrace();
 			}
 			
-			new Player();
+			new UserWindow("a");
 //			try {
 //				
 //				HttpController.setService("127.0.0.1",8000);//Create Connection
