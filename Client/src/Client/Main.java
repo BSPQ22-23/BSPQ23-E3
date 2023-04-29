@@ -16,6 +16,7 @@ import windows.UserWindow;
 public class Main {
 		
 		public static void main(String[] args){
+			System.out.println(System.getProperty("user.dir"));
 			try {
 				Files.createDirectories(Paths.get("./audios"));
 				HttpController.setService("127.0.0.1",8000);
@@ -24,11 +25,12 @@ public class Main {
 					a.add(i);
 					System.out.println(i);
 				}
+				//HttpController.register("USER", "1");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-			new UserWindow("a");
+			new MenuWindow();
 //			try {
 //				
 //				HttpController.setService("127.0.0.1",8000);//Create Connection

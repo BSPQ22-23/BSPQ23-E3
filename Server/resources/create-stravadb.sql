@@ -1,11 +1,11 @@
 /* DELETE 'stravadb' database*/
-DROP SCHEMA IF EXISTS stravadb;
+DROP SCHEMA IF EXISTS cancioncitas;
 /* DELETE USER 'sd' AT LOCAL SERVER*/
-DROP USER IF EXISTS 'sd'@'%';
+DROP USER IF EXISTS 'spq'@'%';
 
-/* CREATE ''stravadb' DATABASE */
-CREATE SCHEMA stravadb;
-/* CREATE THE USER 'sd' AT LOCAL SERVER WITH PASSWORD 'sd' */
-CREATE USER IF NOT EXISTS 'sd'@'%' IDENTIFIED BY 'sd';
-/* GRANT FULL ACCESS TO THE DATABASE FOR THE USER 'sd' AT LOCAL SERVER*/
-GRANT ALL ON stravadb.* TO 'sd'@'%';
+/* CREATE 'stravadb' DATABASE */
+CREATE SCHEMA cancioncitas;
+
+CREATE USER IF NOT EXISTS 'spq'@'%' IDENTIFIED BY 'spq';
+
+GRANT ALL ON cancioncitas.* TO 'spq'@'%';

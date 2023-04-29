@@ -66,7 +66,7 @@ public class DownloadWd extends JFrame{
 				// DONT KNOW WHAT TO DO HERE.
 				try {
 					if(a.getSelectedValue()!=null) {
-						HttpController.recieveFile(a.getSelectedValue());
+						HttpController.recieveFile(a.getSelectedValue(), "PLAYLIST"); //TODO
 					}
 					
 				} catch (IOException | URISyntaxException | InterruptedException | ExecutionException e1) {

@@ -30,4 +30,12 @@ public class Playlist {
 		songList.add(s);
 	}
 	
+	public void removeSong(String s) {
+		for (Song song : songList) {
+			if(song.getName().equals(s)) {
+				songList.remove(songList.indexOf(song));
+			}
+		}
+	}
+	
 }

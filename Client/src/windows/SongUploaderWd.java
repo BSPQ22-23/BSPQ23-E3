@@ -59,7 +59,7 @@ public class SongUploaderWd extends JFrame {
             	
             	try {
             		if(selectedFile!=null) {
-            			HttpController.sendFile(selectedFile.getAbsolutePath(), secondNameField.getText());
+            			HttpController.sendFile(selectedFile.getAbsolutePath(), secondNameField.getText(), "PLAYLIST", "USER"); //TODO
             		}
             		
             	}catch(Exception f) {

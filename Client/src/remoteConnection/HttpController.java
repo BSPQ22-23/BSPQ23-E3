@@ -60,12 +60,14 @@ public class HttpController {
 	 * @throws ExecutionException
 	 */
 	
-	public static HttpResponse<String> sendFile(String file, String album) throws IOException, URISyntaxException, InterruptedException, ExecutionException {
+	public static HttpResponse<String> sendFile(String file, String album, String playlist, String user) throws IOException, URISyntaxException, InterruptedException, ExecutionException {
 		DataInputStream dis = new DataInputStream(new FileInputStream(file));
 		HttpRequest.Builder request = HttpRequest.newBuilder()
 				  .uri(new URI(destination + "audioSend"))
-				  .header("songName", new File(file).getName())
+				  .header("songName", playlist + "_" + new File(file).getName())
 				  .header("songAlbum", album)
+				  .header("Playlist", playlist)
+				  .header("User", user)
 				  .POST(BodyPublishers.ofByteArray(Base64.getEncoder().encode(dis.readAllBytes())));	
 		
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
@@ -83,10 +85,10 @@ public class HttpController {
 	 * @throws InterruptedException
 	 * @throws ExecutionException
 	 */
-	public static void recieveFile(String file) throws IOException, URISyntaxException, InterruptedException, ExecutionException{
+	public static void recieveFile(String file, String playlist) throws IOException, URISyntaxException, InterruptedException, ExecutionException{
 		HttpRequest.Builder request = HttpRequest.newBuilder()
 				  .uri(new URI(destination +"audioAsk"))
-				  .header("songName", file)
+				  .header("songName", playlist + "_" + file)
 				  .GET();
 		
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
@@ -148,10 +150,11 @@ public class HttpController {
 	 * @throws InterruptedException
 	 * @throws ExecutionException
 	 */
-	public static boolean createPlaylist(String playList) throws URISyntaxException, InterruptedException, ExecutionException{
+	public static boolean createPlaylist(String playList, String user) throws URISyntaxException, InterruptedException, ExecutionException{
 		HttpRequest.Builder request = HttpRequest.newBuilder()
 				  .uri(new URI(destination +"createPlaylist"))
 				  .header("ListName", playList)
+				  .header("Username", user)
 				  .GET();
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
 		if(response.body().equals("ok")) {
@@ -159,23 +162,7 @@ public class HttpController {
 		}
 		return false;
 	}
-	/**
-	 * 
-	 * @param song - Name of the song to add to the specified playlist
-	 * @param playList - Name of the playlist we want to add a song into
-	 * @throws URISyntaxException
-	 * @throws InterruptedException
-	 * @throws ExecutionException
-	 */
-	public static void addSongToPlaylist(String song, String playList) throws URISyntaxException, InterruptedException, ExecutionException{
-		HttpRequest.Builder request = HttpRequest.newBuilder()
-				  .uri(new URI(destination +"addSongToPlaylist"))
-				  .header("ListName", playList)
-				  .header("SongName", song)
-				  .GET();
-		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
-		System.out.println(response.body());
-	}
+	
 	/**
 	 * 
 	 * @return Names of all the existing playlists in the server
@@ -196,12 +183,23 @@ public class HttpController {
 		}
 		return returnList;
 	}
-	public static boolean deleteSong(String name) throws URISyntaxException, InterruptedException, ExecutionException {
+	
+	/**
+	 * 
+	 * @param name - Name of the song to delete
+	 * @param playlist - Playlist in which that song is
+	 * @return
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
+	public static boolean deleteSong(String name, String playlist) throws URISyntaxException, InterruptedException, ExecutionException {
 		File f = new File("audios/"+name);
 		f.delete();
 		HttpRequest.Builder request = HttpRequest.newBuilder()
 				  .uri(new URI(destination +"DeleteSong"))
-				  .header("Name", name)
+				  .header("Name", playlist + "_" + name)
+				  .header("plName", playlist)
 				  .GET();
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
 		if(response.body().equals("ok")) {
@@ -209,10 +207,21 @@ public class HttpController {
 		}
 		return false;
 	}
-	public static String deletePlaylist(String name) throws URISyntaxException, InterruptedException, ExecutionException{
+	
+	/**
+	 * 
+	 * @param name - Name of the desired playlist
+	 * @param user - Name of the creator of the playList
+	 * @return
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
+	public static String deletePlaylist(String name, String user) throws URISyntaxException, InterruptedException, ExecutionException{
 		HttpRequest.Builder request = HttpRequest.newBuilder()
 				  .uri(new URI(destination +"DeletePlaylist"))
 				  .header("Name", name)
+				  .header("User", user)
 				  .GET();
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
 		
@@ -222,7 +231,7 @@ public class HttpController {
 	
 	
 	
-	//HTTP for login/register
+	
 	/**
 	 * 
 	 * @param name - Name of the account for logging
@@ -239,12 +248,12 @@ public class HttpController {
 				  .header("Password", password)
 				  .GET();
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
-		if(response.body().equals("ok")) {
+		if(response.body().equals("OK")) {
 			return true;
 		}
 		return false;
 	}
-	//TODO posiblemente añadir más data
+	
 	/**
 	 * 
 	 * @param name - Name of the account to register

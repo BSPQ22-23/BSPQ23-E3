@@ -17,8 +17,11 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import dao.PlaylistDAO;
+import dao.UserDAO;
 import data.Playlist;
 import data.Song;
+import data.User;
 public class Main {
 	public static void main(String[] args) throws Exception {
 		
@@ -29,7 +32,6 @@ public class Main {
         server.createContext("/avilableSongSend", new SendAvilableSongsHandler());
         server.createContext("/getPlaylistSongs", new SendPlaylistSongs());
         server.createContext("/createPlaylist", new CreatePlaylist());
-        server.createContext("/addSongToPlaylist", new AddSongToPlaylist());
         server.createContext("/getPlaylists", new GetPlaylists());
         server.createContext("/DeleteSong", new DeleteSong());
         server.createContext("/DeletePlaylist", new DeletePlaylist());
@@ -47,10 +49,15 @@ public class Main {
         		
         		List<String> a = t.getRequestHeaders().getOrDefault("songName", List.of(""));
         		List<String> b = t.getRequestHeaders().getOrDefault("songAlbum", List.of(""));
-        		//TODO pass the name from b to Database
+        		List<String> c = t.getRequestHeaders().getOrDefault("PlayList", List.of(""));
+        		List<String> d = t.getRequestHeaders().getOrDefault("User", List.of(""));
+        		
         		System.out.println(b.get(0));
+        		User u = UserDAO.getInstance().find(d.get(0));
+        		u.getSpecificPL(c.get(0)).addSong(new Song(a.get(0), b.get(0)));
+        		UserDAO.getInstance().updateUser(u);
                	DataOutputStream dis = new DataOutputStream(new FileOutputStream("audios/"+a.get(0)));
-            	
+               	
                 String response = "Recieved";
                 t.sendResponseHeaders(200, response.length());
                 OutputStream os = t.getResponseBody();
@@ -140,7 +147,7 @@ public class Main {
         		
         		List<String> a = t.getRequestHeaders().getOrDefault("ListName", List.of(""));
         		System.out.println(a.get(0));
-        		for(Song f : Playlist.getPlaylist(a.get(0)).getSongs()) {
+        		for(Song f : PlaylistDAO.getInstance().find(a.get(0)).getSongs()) {
         			names+="#" + f.getName();
         			
         		}
@@ -163,7 +170,10 @@ public class Main {
     	public void handle(HttpExchange t) {
     		try {
     			List<String> a = t.getRequestHeaders().getOrDefault("Name", List.of(""));
+    			List<String> b = t.getRequestHeaders().getOrDefault("plName", List.of(""));
     			File f = new File("audios/"+a.get(0));
+    			Playlist p = PlaylistDAO.getInstance().find(b.get(0));
+    			p.removeSong(a.get(0));
     			String response;
     			if(f.delete()) {
     				System.out.println("Deleted " + a.get(0));
@@ -195,8 +205,10 @@ public class Main {
         		
         		
         		List<String> a = t.getRequestHeaders().getOrDefault("ListName", List.of(""));
+        		List<String> b = t.getRequestHeaders().getOrDefault("Username", List.of(""));
         		System.out.println(a.get(0));
-        		Playlist.createPlaylist(a.get(0));
+        		UserDAO.getInstance().find(b.get(0)).addPlaylist(a.get(0));
+        		UserDAO.getInstance().updateUser(UserDAO.getInstance().find(b.get(0)));
                 t.sendResponseHeaders(200, 2);
                   
                 OutputStream os = t.getResponseBody();
@@ -212,36 +224,15 @@ public class Main {
     	}
     }
     
-    static class AddSongToPlaylist implements HttpHandler{
-    	@Override
-    	public void handle(HttpExchange t) {
-    		try {
-    		List<String> a = t.getRequestHeaders().getOrDefault("ListName", List.of(""));
-    		List<String> b = t.getRequestHeaders().getOrDefault("SongName", List.of(""));
-    		Playlist.addSongToPlaylist(a.get(0),b.get(0));
-    		t.sendResponseHeaders(200, 2);
-            
-            OutputStream os = t.getResponseBody();
-           
-            String s = "ok";
-                         
-            os.write(s.getBytes());
-           
-            os.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}
-    }
     
     static class GetPlaylists implements HttpHandler{
     	@Override
     	public void handle(HttpExchange t) {
     		try {
-    			List<String> a = t.getRequestHeaders().getOrDefault("Playlist", List.of(""));
+    			//List<String> a = t.getRequestHeaders().getOrDefault("Playlist", List.of(""));
     			
     			String names = "";
-    			for(Playlist p : Playlist.getAllPlaylists().values()) {
+    			for(Playlist p : PlaylistDAO.getInstance().getAll()) {
     				names += "#"+p.getName();
     			}
     			               
@@ -267,8 +258,12 @@ public class Main {
     		try {
     			List<String> a = t.getRequestHeaders().getOrDefault("Name", List.of(""));
     			List<String> b = t.getRequestHeaders().getOrDefault("Password", List.of(""));
-    			String s = "ok";
-    			//TODO login funcionality
+    			String s = "notOK";
+    			
+    			User u =  UserDAO.getInstance().find(a.get(0));
+    			if(u != null && u.getPassword().equals(b.get(0))) {
+    				s = "OK";
+    			}
     			
     			               
                 t.sendResponseHeaders(200, s.length());
@@ -295,7 +290,9 @@ public class Main {
     			List<String> b = t.getRequestHeaders().getOrDefault("Password", List.of(""));
     			String s = "ok";
     			System.out.println("Registered: " + a + " pass: " + b);
-    			//TODO register funcionality
+    			
+    			User u = new User(a.get(0), b.get(0));
+    			UserDAO.getInstance().save(u);
     			
     			               
                 t.sendResponseHeaders(200, s.length());
@@ -320,15 +317,12 @@ public class Main {
     	public void handle(HttpExchange t) {
     		try {
     			List<String> a = t.getRequestHeaders().getOrDefault("Name", List.of(""));
-    			
+    			List<String> b =  t.getRequestHeaders().getOrDefault("User", List.of(""));
     			String s = "NaN";
-    			if(Playlist.getAllPlaylists().remove(a.get(0)) == null) {
-    				s = "delted";
-    			}else {
-    				s = "Non existent";
-    			}
-    			
-    			//TODO register funcionality
+    			User u = UserDAO.getInstance().find(b.get(0));
+    			u.getPlaylist().remove(a.get(0));
+    			PlaylistDAO.getInstance().delete(PlaylistDAO.getInstance().find(a.get(0)));
+    			UserDAO.getInstance().updateUser(u);
     			
     			               
                 t.sendResponseHeaders(200, s.length());
