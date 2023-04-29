@@ -1,7 +1,6 @@
 package data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
@@ -11,11 +10,12 @@ import javax.jdo.annotations.Persistent;
 public class Playlist {
 	@Join
 	@Persistent(defaultFetchGroup = "true")
-	private ArrayList<Song> songList = new ArrayList<Song>();
+	private ArrayList<Song> songList;
 	private String name;
 	
 	public Playlist(String name) {
 		this.name = name;
+		songList = new ArrayList<>();
 	}
 	
 	public String getName() {
