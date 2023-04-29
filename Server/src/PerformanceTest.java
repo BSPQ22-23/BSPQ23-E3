@@ -9,7 +9,7 @@ import data.Playlist;
 public class PerformanceTest {
 
 	@Rule
-	public JUnitPerfRule rule = new JUnitPerfRule(new HtmlReportGenerator("target/Performance/report.html"));
+	public JUnitPerfRule rule = new JUnitPerfRule(new HtmlReportGenerator("Performance/report.html"));
 	
 	@Test
 	@JUnitPerfTest(durationMs = 10000, threads = 20)
