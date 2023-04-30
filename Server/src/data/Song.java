@@ -3,6 +3,7 @@ import javax.jdo.annotations.*;
 
 @PersistenceCapable(detachable = "true")
 public class Song {
+	@PrimaryKey
 	private String name;
 	private String album;
 	

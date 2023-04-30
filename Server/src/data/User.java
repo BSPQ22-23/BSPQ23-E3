@@ -6,10 +6,11 @@ import java.util.HashMap;
 import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(detachable = "true")
 public class User {
-
+	@PrimaryKey
 	private String username;
 	private String password;
 	@Join
