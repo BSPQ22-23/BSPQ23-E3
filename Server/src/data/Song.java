@@ -16,4 +16,12 @@ public class Song {
 	public String getName() {
 		return this.name;
 	}
+
+	public String getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(String album) {
+		this.album = album;
+	}
 }
