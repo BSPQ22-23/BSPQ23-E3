@@ -1,3 +1,4 @@
+package test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -22,10 +23,12 @@ public class DataBaseTest {
 		pl.getSongs().add(s);
 		u.getPlaylist().put("try1",pl);
 		UserDAO.getInstance().save(u);
-		
+		User u2 = UserDAO.getInstance().find("Eneko");
 		assertEquals(u.getUsername(), UserDAO.getInstance().find("Eneko").getUsername());
-		assertEquals(pl, PlaylistDAO.getInstance().find("try1"));
-		assertEquals(s, SongDAO.getInstance().find("Rick Roll"));
+		assertEquals(pl.getName(), PlaylistDAO.getInstance().find("try1").getName());
+		assertEquals(s.getName(), SongDAO.getInstance().find("Rick Roll").getName());
+		assertEquals(u.getUsername(), u2.getUsername());
+		assertEquals(pl.getName(), u2.getPlaylist().get("try1").getName());
 	}
 
 }
