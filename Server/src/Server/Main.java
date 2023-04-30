@@ -321,16 +321,21 @@ public class Main {
     			List<String> b =  t.getRequestHeaders().getOrDefault("User", List.of(""));
     			String s = "NaN";
     			User u = UserDAO.getInstance().find(b.get(0));
+    			Playlist p = PlaylistDAO.getInstance().find(a.get(0));
     			if(u.getPlaylist().containsKey(a.get(0))) {
+    				
     				u.getPlaylist().remove(a.get(0));
-    				Playlist p = PlaylistDAO.getInstance().find(a.get(0));
-    				for (Song l : p.getSongs()) {
+    				
+    				
+    				UserDAO.getInstance().updateUser(u);
+        			PlaylistDAO.getInstance().delete(p);
+        			
+        			for (Song l : p.getSongs()) {
 						File f = new File("audios/" + l.getName());
 						SongDAO.getInstance().delete(l);
 						f.delete();
 					}
-        			PlaylistDAO.getInstance().delete(PlaylistDAO.getInstance().find(a.get(0)));
-        			UserDAO.getInstance().updateUser(u);
+        			
     			}            
                 t.sendResponseHeaders(200, s.length());
                   

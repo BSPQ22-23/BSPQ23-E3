@@ -17,3 +17,6 @@ You can listen to the songs, or upload them as an artist.
 
 Music can be only uploaded through the provided client, otherwise the audio file will not be valid.
 Also, the music MUST be in .wav file format in order to be uploaded/downloaded
+
+Compiling:
+mvn -DskipTest compile

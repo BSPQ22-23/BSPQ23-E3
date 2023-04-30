@@ -1,0 +1,11 @@
+CLIENT:
+mvn -DskipTests compile
+mvn exec:java
+
+SERVER:
+
+mvn datanucleus:enhance
+mvn datanucleus:schema-delete
+mvn datanucleus:schema-create
+mvn -DskipTests compile
+mvn exec:java
