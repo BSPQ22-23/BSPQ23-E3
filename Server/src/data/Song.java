@@ -1,4 +1,5 @@
 package data;
+
 import javax.jdo.annotations.*;
 
 @PersistenceCapable(detachable = "true")
