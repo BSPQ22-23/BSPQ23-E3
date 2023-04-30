@@ -38,11 +38,13 @@ public class Player extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private int song = -1;
 	private JList<String> a;
+	private String totem;
 	
 //	public static void main(String[] args) {
 //		
 //	}
-	public Player() {
+	public Player(String totem) {
+		this.totem = totem;
 		p = this;
 		setTitle("AudioPlayer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,9 +56,14 @@ public class Player extends JFrame{
 
         // Creación de la lista
         File folder = new File("audios");
+        ArrayList<String> tem = new ArrayList<String>();
 		File[] listOfFiles = folder.listFiles();
 		for(File i: listOfFiles) {
-			items.add(i.getName());
+			tem.add(i.getName());
+		}
+		for(String i: tem) {
+			String[] partes = i.split("_");
+		    items.add(partes[1]);
 		}
         a = new JList<>(items.toArray(new String[0]));
         JScrollPane scrollPane = new JScrollPane(a);
@@ -74,6 +81,7 @@ public class Player extends JFrame{
         buttonPanel.add(stopButton);
         buttonPanel.add(uploadSong);
         buttonPanel.add(downloadButton);
+        buttonPanel.add(backButton);
 
         // Añadir la lista y los botones al contenedor principal
         contentPane.add(scrollPane, BorderLayout.CENTER);
@@ -102,9 +110,6 @@ public class Player extends JFrame{
 					}else {
 						System.out.println("ERROR - Could not delete the song");
 					}
-					
-					
-					
 				}
 				
 			
@@ -135,7 +140,7 @@ public class Player extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new SongUploaderWd(p);
+				new SongUploaderWd(p, totem);
 				
 			}
 		});
@@ -145,11 +150,20 @@ public class Player extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				try {
-					new DownloadWd();
+					new DownloadWd(totem);
 				} catch (URISyntaxException | InterruptedException | ExecutionException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
+			}
+		});
+        backButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new UserWindow(totem);
 				
 			}
 		});

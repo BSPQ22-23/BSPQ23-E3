@@ -4,6 +4,7 @@ package windows;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import remoteConnection.HttpController;
 
@@ -27,11 +29,12 @@ public class DownloadWd extends JFrame{
 	private ArrayList<String> items = new ArrayList<String>();
 
 	private static final long serialVersionUID = 1L;
+	private String totem;
 //	public static void main(String[] args) {
 //		
 //	}
-	public DownloadWd() throws URISyntaxException, InterruptedException, ExecutionException {
-		
+	public DownloadWd(String totem) throws URISyntaxException, InterruptedException, ExecutionException {
+		this.totem = totem;
 		setTitle("Download Song");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 350);
@@ -55,7 +58,6 @@ public class DownloadWd extends JFrame{
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
         buttonPanel.add(downloadButton);
         buttonPanel.add(backButton);
-
         // Añadir la lista y los botones al contenedor principal
         contentPane.add(scrollPane, BorderLayout.CENTER);
         contentPane.add(buttonPanel, BorderLayout.SOUTH);
@@ -66,9 +68,8 @@ public class DownloadWd extends JFrame{
 				// DONT KNOW WHAT TO DO HERE.
 				try {
 					if(a.getSelectedValue()!=null) {
-						HttpController.recieveFile(a.getSelectedValue(), "PLAYLIST"); //TODO
+						HttpController.recieveFile(a.getSelectedValue()); //TODO
 					}
-					
 				} catch (IOException | URISyntaxException | InterruptedException | ExecutionException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -81,7 +82,7 @@ public class DownloadWd extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// DONT KNOW WHAT TO DO HERE.
 				dispose();
-				new Player();
+				new Player(totem);
 				
 			}
 		});

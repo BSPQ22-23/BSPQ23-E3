@@ -18,6 +18,7 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import dao.PlaylistDAO;
+import dao.SongDAO;
 import dao.UserDAO;
 import data.Playlist;
 import data.Song;
@@ -320,11 +321,17 @@ public class Main {
     			List<String> b =  t.getRequestHeaders().getOrDefault("User", List.of(""));
     			String s = "NaN";
     			User u = UserDAO.getInstance().find(b.get(0));
-    			u.getPlaylist().remove(a.get(0));
-    			PlaylistDAO.getInstance().delete(PlaylistDAO.getInstance().find(a.get(0)));
-    			UserDAO.getInstance().updateUser(u);
-    			
-    			               
+    			if(u.getPlaylist().containsKey(a.get(0))) {
+    				u.getPlaylist().remove(a.get(0));
+    				Playlist p = PlaylistDAO.getInstance().find(a.get(0));
+    				for (Song l : p.getSongs()) {
+						File f = new File("audios/" + l.getName());
+						SongDAO.getInstance().delete(l);
+						f.delete();
+					}
+        			PlaylistDAO.getInstance().delete(PlaylistDAO.getInstance().find(a.get(0)));
+        			UserDAO.getInstance().updateUser(u);
+    			}            
                 t.sendResponseHeaders(200, s.length());
                   
                 OutputStream os = t.getResponseBody();

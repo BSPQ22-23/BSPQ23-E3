@@ -19,12 +19,14 @@ import remoteConnection.HttpController;
 
 public class SongUploaderWd extends JFrame {
     private JButton fileButton;
-    private JTextField secondNameField;
+    private JTextField secondNameField, playlistField;
     private File selectedFile;
     String fileButText;
-    public SongUploaderWd(Player player) {
+    String totem;
+    public SongUploaderWd(Player player, String totem) {
         super("Song Uploader");
-
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.totem = totem;
         // create the label and text field for the first name
 
         // create the button to select a file
@@ -46,10 +48,15 @@ public class SongUploaderWd extends JFrame {
 
         // create the label and text field for the second name
         JLabel secondNameLabel = new JLabel("Album:");
+        JLabel playlistLabel = new JLabel("PlayList:");
         secondNameField = new JTextField(20);
+        playlistField = new JTextField(20);
         JPanel secondNamePanel = new JPanel(new BorderLayout());
+        
         secondNamePanel.add(secondNameLabel, BorderLayout.WEST);
         secondNamePanel.add(secondNameField, BorderLayout.CENTER);
+        secondNamePanel.add(playlistLabel, BorderLayout.SOUTH);
+        secondNamePanel.add(playlistField, BorderLayout.SOUTH);
 
         // create the button to submit the form
         JButton submitButton = new JButton("Submit");
@@ -59,7 +66,8 @@ public class SongUploaderWd extends JFrame {
             	
             	try {
             		if(selectedFile!=null) {
-            			HttpController.sendFile(selectedFile.getAbsolutePath(), secondNameField.getText(), "PLAYLIST", "USER"); //TODO
+            			System.out.println("Album: "+ secondNameField.getText() + " PlayList: "+ playlistField.getText());
+            			HttpController.sendFile(selectedFile.getAbsolutePath(), secondNameField.getText(), playlistField.getText(), totem); //TODO
             		}
             		
             	}catch(Exception f) {

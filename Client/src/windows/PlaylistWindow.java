@@ -1,86 +1,176 @@
 package windows;
 
-import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
-import javax.swing.JLabel;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
-public class PlaylistWindow {
+import audioManagement.AudioPlayer;
+import remoteConnection.HttpController;
 
-	private JFrame frmPlaylist;
-	private String token;
+public class PlaylistWindow extends JFrame{
+	/**
+	 * 
+	 */
+	private ArrayList<String> items = new ArrayList<String>();
+	private static final long serialVersionUID = 1L;
+	private int num = -1;
+	private JList<String> a;
+	private String totem;
+	private ArrayList<String> allsongs;
+	private ArrayList<File> listOfFiles;
+	
 //	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					PlaylistWindow window = new PlaylistWindow();
-//					window.frmPlaylist.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
+//		
 //	}
+	public PlaylistWindow(String totem) {
+		listOfFiles = new ArrayList<File>();
+		this.totem = totem;
+		setTitle("PlayList List");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(500, 350);
 
-	public PlaylistWindow(String token) {
-		this.token = token;
-		initialize();
-	}
+        // Creación del contenedor principal
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
 
-	private void initialize() {
-		frmPlaylist = new JFrame();
-		frmPlaylist.setTitle("Playlist");
-		frmPlaylist.setBounds(100, 100, 450, 300);
-		frmPlaylist.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmPlaylist.getContentPane().setLayout(new GridLayout(2, 1, 0, 0));
+        // Creación de la lista
+        File folder = new File("audios");
+        allsongs = new ArrayList<String>();
+		File[] list = folder.listFiles();
+		for(File i: list) {
+			listOfFiles.add(i);
+		}
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(128, 0, 64));
-		frmPlaylist.getContentPane().add(panel);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("SONGS");
-		lblNewLabel.setBounds(201, 5, 67, 14);
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		panel.add(lblNewLabel);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(128, 0, 64));
-		frmPlaylist.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
-		
-		JButton backButton = new JButton("BACK");
-		backButton.setBounds(101, 82, 96, 23);
-		backButton.setForeground(new Color(255, 255, 255));
-		backButton.setBackground(new Color(128, 128, 128));
-		panel_1.add(backButton);
-		
-		JButton deleteButton = new JButton("DELETE PLAYLIST");
-		deleteButton.setBounds(207, 82, 154, 23);
-		deleteButton.setForeground(new Color(255, 255, 255));
-		deleteButton.setBackground(new Color(128, 128, 128));
-		panel_1.add(deleteButton);
-		
-		backButton.addActionListener(new ActionListener() {
+		for(File i: listOfFiles) {
+			allsongs.add(i.getName());
+		}
+		for(String i: allsongs) {
+			String[] partes = i.split("_");
+			if(!items.contains(partes[0])) {
+				items.add(partes[0]);
+			}
+		    
+		}
+        a = new JList<>(items.toArray(new String[0]));
+        JScrollPane scrollPane = new JScrollPane(a);
+
+        // Creación de los botones
+        JButton deleteButton = new JButton("Delete");
+        JButton backButton = new JButton("Back");
+        
+        // Creación del contenedor para los botones
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
+        buttonPanel.add(backButton);
+        buttonPanel.add(deleteButton);
+
+        // Añadir la lista y los botones al contenedor principal
+        contentPane.add(scrollPane, BorderLayout.CENTER);
+        contentPane.add(buttonPanel, BorderLayout.SOUTH);
+        
+        deleteButton.addActionListener(new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					new UserWindow(token);
-					frmPlaylist.setVisible(false);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if(a.getSelectedIndex()>=0) {
+					num  = a.getSelectedIndex();
+					if(num > -1) {
+							try {
+								HttpController.deletePlaylist(items.get(num), totem);
+								
+							} catch (URISyntaxException | InterruptedException | ExecutionException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							ArrayList<String> copy = new ArrayList<String>();
+							copy.addAll(allsongs);
+							Boolean temp = false;
+							for(String i: copy) {
+								String[] partes = i.split("_");
+								System.out.println("Items: " + items.get(num) + "Parte[0]: " + partes[0]);
+								if(items.get(num).equals(partes[0])&&allsongs.contains(i)) {
+									
+									File todelete = new File(listOfFiles.get(allsongs.indexOf(i)).getAbsolutePath());
+									System.out.println("Canción: " + i + " Index: " + allsongs.indexOf(i) + " Archivo: " + todelete.getName());
+									if(todelete.delete()) {
+										temp = true;
+										
+										listOfFiles.remove(allsongs.indexOf(i));
+										allsongs.remove(allsongs.indexOf(i));
+									}else {
+										System.out.println("ERROR - Could not delete the song");
+									}
+								}
+							}
+							if(temp) {
+								items.remove(num);
+								DefaultListModel<String> model = new DefaultListModel<>();
+								for (String element : items) {
+						            model.addElement(element);
+						        }
+								a.setModel(model);
+								num = -1;
+							}
+							
+							
+							
+						
+						
+					}else {
+						System.out.println("ERROR - Could not delete the song");
+					}
 				}
+				
+			
+	            
+				//MAKE THAT SONG PLAYABLE
 			}
 		});
-		
-		frmPlaylist.setVisible(true);
+        backButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new UserWindow(totem);
+				
+			}
+		});
+        
+        a.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+              
+                	if(a.getSelectedIndex()>=0) {
+                		dispose();
+        				new PlaylistSongs(totem, items.get(a.getSelectedIndex()));
+    				}
+                }
+            }
+        });
+        // Mostrar la ventana
+        setVisible(true);
+        
 	}
-
 }

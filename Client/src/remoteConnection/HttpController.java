@@ -85,10 +85,10 @@ public class HttpController {
 	 * @throws InterruptedException
 	 * @throws ExecutionException
 	 */
-	public static void recieveFile(String file, String playlist) throws IOException, URISyntaxException, InterruptedException, ExecutionException{
+	public static void recieveFile(String file) throws IOException, URISyntaxException, InterruptedException, ExecutionException{
 		HttpRequest.Builder request = HttpRequest.newBuilder()
 				  .uri(new URI(destination +"audioAsk"))
-				  .header("songName", playlist + "_" + file)
+				  .header("songName", file)
 				  .GET();
 		
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();

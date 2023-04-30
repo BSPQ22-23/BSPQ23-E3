@@ -8,6 +8,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import remoteConnection.HttpController;
+import songs.UserInfo;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -116,7 +117,7 @@ public class LoginWindow {
 						a = HttpController.login(textField.getText(), passwordField_1.getText());
 					}
 					if(a) {
-						new UserWindow("a");
+						new UserWindow(textField.getText());
 						frmLogin.setVisible(false);
 					}else {
 						JOptionPane.showMessageDialog(null, "Error");

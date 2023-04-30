@@ -92,7 +92,7 @@ public class UserWindow {
 		myPlaylistsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new PlaylistsWindow(token);
+					new PlaylistWindow(token);
 					frmUser.setVisible(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -104,7 +104,7 @@ public class UserWindow {
 		songCatalogButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new Player();
+					new Player(token);
 					frmUser.setVisible(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
