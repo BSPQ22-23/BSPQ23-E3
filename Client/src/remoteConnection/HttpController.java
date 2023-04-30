@@ -26,12 +26,28 @@ public class HttpController {
 	private static String destination;
 	private static HttpClient client = HttpClient.newHttpClient();
 	
+	
+	
+	public static String getDestination() {
+		return destination;
+	}
+
+
+	public static void setDestination(String destination) {
+		HttpController.destination = destination;
+	}
+
+
+
+
 	public static void setService(String ip, int port) throws IOException {
 		URL url = new URL("http://"+ip+':'+port+'/');
 		url.openConnection().connect();
 		destination = url.toString();
 		System.out.println(destination);
 	}
+	
+	
 	
 	
 	public static HttpResponse<String> sendRequest(String method) throws URISyntaxException, InterruptedException, ExecutionException {
