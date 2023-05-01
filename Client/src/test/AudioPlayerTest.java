@@ -12,57 +12,50 @@ import audioManagement.AudioPlayer;
 
 public class AudioPlayerTest {
 
-    private AudioPlayer audioPlayer;
-
-    @Before
-    public void setUp() throws Exception {
-        audioPlayer = new AudioPlayer();
-    }
 
     @After
     public void tearDown() throws Exception {
-        audioPlayer.stopAudioClip();
-        audioPlayer = null;
+        AudioPlayer.stopAudioClip();
     }
 
     @Test
     public void testPlayNewAudioClip() {
-        audioPlayer.playNewAudioClip("ds.wav");
-        assertTrue(audioPlayer.playing());
+        AudioPlayer.playNewAudioClip("ds.wav");
+        assertTrue(AudioPlayer.playing());
     }
 
     @Test
     public void testStopAudioClip() {
-        audioPlayer.playNewAudioClip("ds.wav");
-        audioPlayer.stopAudioClip();
-        assertFalse(audioPlayer.playing());
+        AudioPlayer.playNewAudioClip("ds.wav");
+        AudioPlayer.stopAudioClip();
+        assertFalse(AudioPlayer.playing());
     }
 
     @Test
     public void testResumeAudioClip() {
-        audioPlayer.playNewAudioClip("ds.wav");
-        long clipTime = audioPlayer.getTime();
-        audioPlayer.stopAudioClip();
-        audioPlayer.resumeAudioClip();
-        assertEquals(clipTime, audioPlayer.getTime());
-        assertTrue(audioPlayer.playing());
+        AudioPlayer.playNewAudioClip("ds.wav");
+        long clipTime = AudioPlayer.getTime();
+        AudioPlayer.stopAudioClip();
+        AudioPlayer.resumeAudioClip();
+        assertEquals(clipTime, AudioPlayer.getTime());
+        assertTrue(AudioPlayer.playing());
     }
 
     @Test
     public void testActive() {
-        audioPlayer.playNewAudioClip("ds.wav");
-        assertTrue(audioPlayer.active());
+        AudioPlayer.playNewAudioClip("ds.wav");
+        assertTrue(AudioPlayer.active());
     }
 
     @Test
     public void testPlaying() {
-        assertFalse(audioPlayer.playing());
+        assertFalse(AudioPlayer.playing());
     }
 
     @Test
     public void testGetTime() {
-        audioPlayer.playNewAudioClip("ds.wav");
-        long clipTime = audioPlayer.getTime();
+        AudioPlayer.playNewAudioClip("ds.wav");
+        long clipTime = AudioPlayer.getTime();
         assertTrue(clipTime >= 0);
     }
 

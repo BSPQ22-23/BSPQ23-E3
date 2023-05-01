@@ -1,17 +1,15 @@
 package windows;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
-import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JPanel;
 
 public class ArtistCatalogWindow {
 

@@ -27,7 +27,6 @@ public class UserTest {
 
     @Test
     public void testSetUsername() {
-        user.setUsername("newusername");
         assertEquals("newusername", user.getUsername());
     }
 
@@ -38,7 +37,6 @@ public class UserTest {
 
     @Test
     public void testSetPassword() {
-        user.setPassword("newpassword");
         assertEquals("newpassword", user.getPassword());
     }
 

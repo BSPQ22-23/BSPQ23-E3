@@ -4,7 +4,6 @@ package windows;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -15,10 +14,8 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 import remoteConnection.HttpController;
 
@@ -34,7 +31,7 @@ public class DownloadWd extends JFrame{
 //		
 //	}
 	public DownloadWd(String totem) throws URISyntaxException, InterruptedException, ExecutionException {
-		this.totem = totem;
+		this.setTotem(totem);
 		setTitle("Download Song");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 350);
@@ -88,5 +85,11 @@ public class DownloadWd extends JFrame{
 		});
         setVisible(true);
         
+	}
+	public String getTotem() {
+		return totem;
+	}
+	public void setTotem(String totem) {
+		this.totem = totem;
 	}
 }

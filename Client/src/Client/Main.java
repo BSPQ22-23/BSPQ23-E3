@@ -3,14 +3,9 @@ package Client;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import audioManagement.AudioPlayer;
 import remoteConnection.HttpController;
 import windows.MenuWindow;
-import windows.Player;
-import windows.RegisterWindow;
-import windows.UserWindow;
 
 //curl 127.0.0.1:8000/test
 public class Main {
