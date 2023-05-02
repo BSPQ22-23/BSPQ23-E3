@@ -12,10 +12,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.DefaultListModel;
@@ -27,9 +30,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import audioManagement.AudioPlayer;
+import audioManagement.SongPlayer;
 import remoteConnection.HttpController;
 
-public class Player extends JFrame{
+public class Player extends JFrame implements SongPlayer{
 	/**
 	 * 
 	 */
@@ -39,10 +43,15 @@ public class Player extends JFrame{
 	private int song = -1;
 	private JList<String> a;
 	private String totem;
-	
+	private boolean change = false;
+	private File[] listOfFiles;
+	private JButton stopButton;
 //	public static void main(String[] args) {
 //		
 //	}
+	
+	
+	
 	public Player(String totem) {
 		this.totem = totem;
 		p = this;
@@ -57,7 +66,7 @@ public class Player extends JFrame{
         // Creación de la lista
         File folder = new File("audios");
         ArrayList<String> tem = new ArrayList<String>();
-		File[] listOfFiles = folder.listFiles();
+		listOfFiles = folder.listFiles();
 		for(File i: listOfFiles) {
 			tem.add(i.getName());
 		}
@@ -70,7 +79,7 @@ public class Player extends JFrame{
 
         // Creación de los botones
         JButton deleteButton = new JButton("Delete");
-        JButton stopButton = new JButton("Stop");
+        stopButton = new JButton("Stop");
         JButton uploadSong = new JButton("Upload Songs");
         JButton downloadButton = new JButton("Download");
         JButton backButton = new JButton("Back");
@@ -106,7 +115,6 @@ public class Player extends JFrame{
 				            model.addElement(element);
 				        }
 						a.setModel(model);
-						song = -1;
 					}else {
 						System.out.println("ERROR - Could not delete the song");
 					}
@@ -178,13 +186,30 @@ public class Player extends JFrame{
     					song = a.getFirstVisibleIndex();
     				}
     				
-    				AudioPlayer.playNewAudioClip(listOfFiles[song].getAbsolutePath());
+    				AudioPlayer.playNewAudioClip(listOfFiles[song].getAbsolutePath(), p);
+    				
     				stopButton.setText("Stop");
                 }
             }
         });
+        
+         
+        
         // Mostrar la ventana
         setVisible(true);
         
+	}
+
+
+
+	@Override
+	public void nextsong() {
+		// TODO Auto-generated method stub
+		song++;
+		if(song >= a.getModel().getSize()) {
+			song = a.getFirstVisibleIndex();
+		}
+		AudioPlayer.playNewAudioClip(listOfFiles[song].getAbsolutePath(), p);
+		stopButton.setText("Stop");
 	}
 }

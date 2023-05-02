@@ -27,9 +27,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import audioManagement.AudioPlayer;
+import audioManagement.SongPlayer;
 import remoteConnection.HttpController;
 
-public class PlaylistSongs extends JFrame{
+public class PlaylistSongs extends JFrame implements SongPlayer{
 	/**
 	 * 
 	 */
@@ -40,11 +41,14 @@ public class PlaylistSongs extends JFrame{
 	private ArrayList<String> allsong;
 	private String totem;
 	private String playlist;
-	
+	private PlaylistSongs p;
+	private File[] listOfFiles;
+	private JButton stopButton;
 //	public static void main(String[] args) {
 //		
 //	}
 	public PlaylistSongs(String totem, String playlist) {
+		this.p = this;
 		this.totem = totem;
 		this.playlist = playlist;
 		setTitle("AudioPlayer");
@@ -58,7 +62,7 @@ public class PlaylistSongs extends JFrame{
         // Creación de la lista
         File folder = new File("audios");
         allsong = new ArrayList<String>();
-		File[] listOfFiles = folder.listFiles();
+		listOfFiles = folder.listFiles();
 		for(File i: listOfFiles) {
 			allsong.add(i.getName());
 		}
@@ -74,7 +78,7 @@ public class PlaylistSongs extends JFrame{
         JScrollPane scrollPane = new JScrollPane(a);
 
         // Creación de los botones
-        JButton stopButton = new JButton("Stop");
+        stopButton = new JButton("Stop");
         JButton backButton = new JButton("Back");
         
         // Creación del contenedor para los botones
@@ -122,13 +126,11 @@ public class PlaylistSongs extends JFrame{
     				}else {
     					song = a.getFirstVisibleIndex();
     				}
-                	System.out.println(items.get(song));
     				for(String i: allsong) {
     					String[] partes = i.split("_");
-    					System.out.println(partes[1]);
     					if(partes[1].equals(items.get(song))) {
     						
-    						AudioPlayer.playNewAudioClip(listOfFiles[allsong.indexOf(i)].getAbsolutePath());
+    						AudioPlayer.playNewAudioClip(listOfFiles[allsong.indexOf(i)].getAbsolutePath(), p);
     					}
     				}
     				
@@ -139,5 +141,23 @@ public class PlaylistSongs extends JFrame{
         // Mostrar la ventana
         setVisible(true);
         
+	}
+	public void nextsong() {
+		// TODO Auto-generated method stub
+		song++;
+		
+		if(song >= a.getModel().getSize()) {
+			song = a.getFirstVisibleIndex();
+		}
+		System.out.println(song);
+		for(String i: allsong) {
+			String[] partes = i.split("_");
+			if(partes[1].equals(a.getModel().getElementAt(song))) {
+				AudioPlayer.playNewAudioClip(listOfFiles[song].getAbsolutePath(), p);
+				stopButton.setText("Stop");
+				break;
+			}
+		}
+		
 	}
 }
