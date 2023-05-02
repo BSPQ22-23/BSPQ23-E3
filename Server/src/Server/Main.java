@@ -15,6 +15,9 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import dao.PlaylistDAO;
 import dao.SongDAO;
 import dao.UserDAO;
@@ -22,8 +25,9 @@ import data.Playlist;
 import data.Song;
 import data.User;
 public class Main {
+	private static final Logger log = LogManager.getLogger(Main.class);
+	
 	public static void main(String[] args) throws Exception {
-		
 		Files.createDirectories(Paths.get("./audios"));
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         server.createContext("/audioSend", new RecieveFileFromClientHandler()); //If a message arrives, does what it orders
@@ -38,7 +42,7 @@ public class Main {
         server.createContext("/Login", new LoginHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
-        System.out.println("Server started...");
+        log.info("Server started lets go  qw...");
     }
 
     static class RecieveFileFromClientHandler implements HttpHandler {
@@ -64,7 +68,9 @@ public class Main {
                 dis.close();
                 os.write(response.getBytes());
                 os.close();
+                log.info("RecieveFileFromClientHandler ok: " + a.get(0) + b.get(0));
 			} catch (Exception e) {
+				log.error("RecieveFileFromClientHandler Error: " + e.getMessage());
 				e.printStackTrace();
 			}
         	
@@ -88,12 +94,13 @@ public class Main {
                 
                 OutputStream os = t.getResponseBody();
                 //t.getResponseBody().write(ba);
-                
-                System.out.println(ba.length);               
+                               
                 os.write(ba);
                 dis.close();
                 os.close();
+                log.info("SendMusicToClientHandler ok: bytes:" + ba.length);
 			} catch (Exception e) {
+				log.error("SendMusicToClientHandler Error: " + e.getMessage());
 				e.printStackTrace();
 			}
         	
@@ -128,7 +135,9 @@ public class Main {
                 os.write(names.getBytes());
                
                 os.close();
+                log.info("SendAvilableSongsHandler ok: songs: " + a);
 			} catch (Exception e) {
+				log.error("SendAvilableSongsHandler Error: " + e.getMessage());
 				e.printStackTrace();
 			}
         	
@@ -159,7 +168,9 @@ public class Main {
                 os.write(names.getBytes());
                
                 os.close();
+                log.info("SendPlaylistSongs ok: Songs: " + a);
 			} catch (Exception e) {
+				log.error("SendPlaylistSongs Error: " + e.getMessage());
 				e.printStackTrace();
 			}
     	}
@@ -190,7 +201,9 @@ public class Main {
                  os.write(response.getBytes());
                 
                  os.close();
-    		}catch(Exception e) {
+                 log.info("DeleteSong ok: Song: " + a.get(0));
+			} catch (Exception e) {
+				log.error("DeleteSong Error: " + e.getMessage());
     			e.printStackTrace();
     		}
     	}
@@ -217,7 +230,9 @@ public class Main {
                 os.write(s.getBytes());
                
                 os.close();
+                log.info("CreatePlaylist ok: " + a.get(0));
 			} catch (Exception e) {
+				log.error("CreatePlaylist Error: " + e.getMessage());
 				e.printStackTrace();
 			}
     	}
@@ -245,7 +260,9 @@ public class Main {
                
                 os.close();
     			
-    		}catch (Exception e) {
+                log.info("GetPlaylists ok");
+			} catch (Exception e) {
+				log.error("GetPlaylists Error: " + e.getMessage());
     			e.printStackTrace();
     		}
     	}
@@ -275,7 +292,9 @@ public class Main {
                
                 os.close();
     			
-    		}catch (Exception e) {
+                log.info("LoginHandler ok");
+			} catch (Exception e) {
+				log.error("LoginHandler Error: " + e.getMessage());
     			e.printStackTrace();
     		}
     	}
@@ -345,7 +364,9 @@ public class Main {
                
                 os.close();
     			
-    		}catch (Exception e) {
+                log.info("RegisterHandler ok");
+			} catch (Exception e) {
+				log.error("RegisterHandler Error: " + e.getMessage());
     			e.printStackTrace();
     		}
     	}
