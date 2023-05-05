@@ -28,6 +28,7 @@ public class Main {
 	private static final Logger log = LogManager.getLogger(Main.class);
 	
 	public static void main(String[] args) throws Exception {
+		
 		Files.createDirectories(Paths.get("./audios"));
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         server.createContext("/audioSend", new RecieveFileFromClientHandler()); //If a message arrives, does what it orders
@@ -42,7 +43,7 @@ public class Main {
         server.createContext("/Login", new LoginHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
-        log.info("Server started lets go  qw...");
+        log.info("Server started...");
     }
 
     static class RecieveFileFromClientHandler implements HttpHandler {
