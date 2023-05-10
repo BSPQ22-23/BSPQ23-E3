@@ -257,17 +257,17 @@ public class HttpController {
 	 * @throws InterruptedException
 	 * @throws ExecutionException
 	 */
-	public static boolean login(String name, String password) throws URISyntaxException, InterruptedException, ExecutionException{
+	public static String login(String name, String password) throws URISyntaxException, InterruptedException, ExecutionException{
 		HttpRequest.Builder request = HttpRequest.newBuilder()
 				  .uri(new URI(destination +"Login"))
 				  .header("Name", name)
 				  .header("Password", password)
 				  .GET();
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
-		if(response.body().equals("OK")) {
-			return true;
-		}
-		return false;
+		
+		
+		return response.body();
+		
 	}
 	
 	/**
@@ -284,6 +284,18 @@ public class HttpController {
 				  .uri(new URI(destination +"Register"))
 				  .header("Name", name)
 				  .header("Password", password)
+				  .GET();
+		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
+		if(response.body().equals("ok")) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean logout(String token) throws  URISyntaxException, InterruptedException, ExecutionException{
+		HttpRequest.Builder request = HttpRequest.newBuilder()
+				  .uri(new URI(destination +"Logout"))
+				  .header("User", token)
 				  .GET();
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
 		if(response.body().equals("ok")) {

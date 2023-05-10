@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -26,6 +27,7 @@ import data.Song;
 import data.User;
 public class Main {
 	private static final Logger log = LogManager.getLogger(Main.class);
+	private static HashMap<String, User> userMap = new HashMap<String, User>();
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -41,6 +43,7 @@ public class Main {
         server.createContext("/DeletePlaylist", new DeletePlaylist());
         server.createContext("/Register", new RegisterHandler());
         server.createContext("/Login", new LoginHandler());
+        server.createContext("/Logout", new LogOutHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
         log.info("Server started...");
@@ -57,7 +60,7 @@ public class Main {
         		List<String> d = t.getRequestHeaders().getOrDefault("User", List.of(""));
         		
         		System.out.println(b.get(0));
-        		User u = UserDAO.getInstance().find(d.get(0));
+        		User u = UserDAO.getInstance().find(userMap.get(d.get(0)).getUsername());
         		u.getSpecificPL(c.get(0)).addSong(new Song(a.get(0), b.get(0)));
         		UserDAO.getInstance().updateUser(u);
                	DataOutputStream dis = new DataOutputStream(new FileOutputStream("audios/"+a.get(0)));
@@ -220,7 +223,7 @@ public class Main {
         		List<String> a = t.getRequestHeaders().getOrDefault("ListName", List.of(""));
         		List<String> b = t.getRequestHeaders().getOrDefault("Username", List.of(""));
         		System.out.println(a.get(0));
-        		UserDAO.getInstance().find(b.get(0)).addPlaylist(a.get(0));
+        		UserDAO.getInstance().find(userMap.get(b.get(0)).getUsername()).addPlaylist(a.get(0));
         		UserDAO.getInstance().updateUser(UserDAO.getInstance().find(b.get(0)));
                 t.sendResponseHeaders(200, 2);
                   
@@ -279,7 +282,8 @@ public class Main {
     			
     			User u =  UserDAO.getInstance().find(a.get(0));
     			if(u != null && u.getPassword().equals(b.get(0))) {
-    				s = "OK";
+    				s = "" + System.currentTimeMillis();
+    				userMap.put(s, u);
     			}
     			
     			               
@@ -338,7 +342,7 @@ public class Main {
     			List<String> a = t.getRequestHeaders().getOrDefault("Name", List.of(""));
     			List<String> b =  t.getRequestHeaders().getOrDefault("User", List.of(""));
     			String s = "NaN";
-    			User u = UserDAO.getInstance().find(b.get(0));
+    			User u = UserDAO.getInstance().find(userMap.get(b.get(0)).getUsername());
     			Playlist p = PlaylistDAO.getInstance().find(a.get(0));
     			if(u.getPlaylist().containsKey(a.get(0))) {
     				
@@ -355,6 +359,38 @@ public class Main {
 					}
         			
     			}            
+                t.sendResponseHeaders(200, s.length());
+                  
+                OutputStream os = t.getResponseBody();
+               
+                
+                             
+                os.write(s.getBytes());
+               
+                os.close();
+    			
+                log.info("RegisterHandler ok");
+			} catch (Exception e) {
+				log.error("RegisterHandler Error: " + e.getMessage());
+    			e.printStackTrace();
+    		}
+    	}
+    }
+    
+    static class LogOutHandler implements HttpHandler{
+    	@Override
+    	public void handle(HttpExchange t) {
+    		try {
+    			
+    			List<String> b =  t.getRequestHeaders().getOrDefault("User", List.of(""));
+    			String s = "NaN";
+    			;
+    			if(userMap.remove(b.get(0)) !=  null) {
+    				s = "Ok";
+    			}
+    			
+        			
+    			            
                 t.sendResponseHeaders(200, s.length());
                   
                 OutputStream os = t.getResponseBody();
