@@ -25,6 +25,23 @@ import dao.UserDAO;
 import data.Playlist;
 import data.Song;
 import data.User;
+/**
+ * 
+ * @author Aimar\n
+ * 
+ * Main class of the Http Server. it provides the following services:\n
+ * 	--> audioSend - Recieves a file from a client\n
+ *  --> audioAsk - It sends the client a certain audio file\n
+ *  --> avilableSongSend - Sends all the names of the avilable songs\n
+ *  --> getPlaylistSongs - Sends all the names of the songs that belong to the specified playlist\n
+ *  --> createPlaylist - Creates a playlist for a user\n
+ *  --> getPlaylists -  Sends the names of all the playlists that belong to the specified user\n
+ *  --> DeleteSong - Deletes the audio file, and its reference from the DB\n
+ *  --> DeletePlaylist -  Deletes the playlist, and all the songs that belong to it\n
+ *  --> Register - Creates an account with the provided information\n
+ *  --> Login - Logs the session of a User, sending a token to identify future requests\n
+ *  --> Logout - Deletes the token used to identify a user\n
+ */
 public class Main {
 	private static final Logger log = LogManager.getLogger(Main.class);
 	private static HashMap<String, User> userMap = new HashMap<String, User>();
@@ -49,6 +66,17 @@ public class Main {
         log.info("Server started...");
     }
 
+	/**
+	 * 
+	 * @author Aimar
+	 * Class used to recieve a file
+	 *	
+	 * When called, this input must be done:
+	 * @param songName - The name of the song file
+	 * @param songAlbum - The name of the album the song belongs to
+	 * @param PlayList - The name of the playlist the song belongs to
+	 * @param User - The token to identify the user
+	 */
     static class RecieveFileFromClientHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange t) {
@@ -82,6 +110,16 @@ public class Main {
         
     }
     
+    /**
+	 * 
+	 * @author Aimar
+	 * Class used to Send a file
+	 *	
+	 * When called, this input must be done:
+	 * @param songName - The name of the song file
+	 * 
+	 * @return The audio file
+	 */
     static class SendMusicToClientHandler implements HttpHandler{
     	@Override
         public void handle(HttpExchange t) {
@@ -111,6 +149,13 @@ public class Main {
         }
     }
     
+    /**
+	 * 
+	 * @author Aimar
+	 * Class used to Send all the avilable songs at the server
+	 * 
+	 * @return All the names of the songs
+	 */
     static class SendAvilableSongsHandler implements HttpHandler{
     	@Override
         public void handle(HttpExchange t) {
@@ -148,6 +193,16 @@ public class Main {
         }
     }
     
+    /**
+	 * 
+	 * @author Aimar
+	 * Class used to Send all the names of the songs that belong to a playlist
+	 *	
+	 * When called, this input must be done:
+	 * @param ListName - The name of the playlist
+	 * 
+	 * @return All the names of the songs at the playlist
+	 */
     static class SendPlaylistSongs implements HttpHandler{
     	@Override
     	public void handle(HttpExchange t) {
@@ -179,6 +234,15 @@ public class Main {
 			}
     	}
     }
+    /**
+	 * 
+	 * @author Aimar
+	 * Class used to Delete an audio file
+	 *	
+	 * When called, this input must be done:
+	 * @param Name - The name of the song file
+	 * @param plName - The name of the playlist the song belongs to
+	 */
     static class DeleteSong implements HttpHandler{
     	@Override
     	public void handle(HttpExchange t) {
@@ -213,6 +277,15 @@ public class Main {
     	}
     }
 
+    /**
+	 * 
+	 * @author Aimar
+	 * Class used to Create a playlist for a user
+	 *	
+	 * When called, this input must be done:
+	 * @param ListName - The name of the playlist to create
+	 * @param Username - The token to identify the user
+	 */
     static class CreatePlaylist implements HttpHandler{
     	@Override
     	public void handle(HttpExchange t) {
@@ -242,7 +315,14 @@ public class Main {
     	}
     }
     
-    
+    /**
+	 * 
+	 * @author Aimar
+	 * Class used to send to the client the names of all the  playlists 
+	 * 
+	 * @return All the names of the playlists
+	 *	
+	 */
     static class GetPlaylists implements HttpHandler{
     	@Override
     	public void handle(HttpExchange t) {
@@ -272,6 +352,17 @@ public class Main {
     	}
     }
     
+    /**
+	 * 
+	 * @author Aimar
+	 * Class used to perform a login
+	 *	
+	 * When called, this input must be done:
+	 * @param Name - The username of the client
+	 * @param Password - The password of the client
+	 * 
+	 * @return returns a token to identify the user
+	 */
     static class LoginHandler implements HttpHandler{
     	@Override
     	public void handle(HttpExchange t) {
@@ -305,6 +396,17 @@ public class Main {
     	}
     }
     
+    /**
+	 * 
+	 * @author Aimar
+	 * Class used to Register a new user
+	 *	
+	 * When called, this input must be done:
+	 * @param Name - The name of the user
+	 * @param Password - The password of the user
+	 * 
+	 * 
+	 */
     static class RegisterHandler implements HttpHandler{
     	@Override
     	public void handle(HttpExchange t) {
@@ -335,6 +437,15 @@ public class Main {
     	}
     }
     
+    /**
+	 * 
+	 * @author Aimar
+	 * Class used to Delete a playlist and the song it contains
+	 *	
+	 * When called, this input must be done:
+	 * @param Name - The name of the playlist we want to delete
+	 * @param User - The token to identify the user
+	 */
     static class DeletePlaylist implements HttpHandler{
     	@Override
     	public void handle(HttpExchange t) {
@@ -377,6 +488,14 @@ public class Main {
     	}
     }
     
+    /**
+	 * 
+	 * @author Aimar
+	 * Class used to perform a Logout
+	 *	
+	 * When called, this input must be done:
+	 * @param User - The token to identify the user
+	 */
     static class LogOutHandler implements HttpHandler{
     	@Override
     	public void handle(HttpExchange t) {

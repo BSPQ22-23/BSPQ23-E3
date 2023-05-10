@@ -39,7 +39,12 @@ public class HttpController {
 
 
 
-
+	/**
+	 * 
+	 * @param ip - IP from the service we want to use
+	 * @param port -  Port in which de service is hosted
+	 * @throws IOException
+	 */
 	public static void setService(String ip, int port) throws IOException {
 		URL url = new URL("http://"+ip+':'+port+'/');
 		url.openConnection().connect();
@@ -69,6 +74,8 @@ public class HttpController {
 	 * 
 	 * @param file Path of the selected file
 	 * @param album Name of the album of the song
+	 * @param playlist -  name of the playlist the song belongs to
+	 * @param user - Token to identify de user
 	 * @return String with the response from the server
 	 * @throws IOException
 	 * @throws URISyntaxException
@@ -161,6 +168,7 @@ public class HttpController {
 	/**
 	 * 
 	 * @param playList - name of the playlist to create
+	 * @param user - Token to identify de user
 	 * @return if the playlist has been succesfully created
 	 * @throws URISyntaxException
 	 * @throws InterruptedException
@@ -204,7 +212,7 @@ public class HttpController {
 	 * 
 	 * @param name - Name of the song to delete
 	 * @param playlist - Playlist in which that song is
-	 * @return
+	 * @return if the song has been deleted
 	 * @throws URISyntaxException
 	 * @throws InterruptedException
 	 * @throws ExecutionException
@@ -227,8 +235,7 @@ public class HttpController {
 	/**
 	 * 
 	 * @param name - Name of the desired playlist
-	 * @param user - Name of the creator of the playList
-	 * @return
+	 * @param user - Token to identify the current user
 	 * @throws URISyntaxException
 	 * @throws InterruptedException
 	 * @throws ExecutionException
@@ -252,7 +259,7 @@ public class HttpController {
 	 * 
 	 * @param name - Name of the account for logging
 	 * @param password - Password of the given account
-	 * @return if the login has been correctly performed
+	 * @return Token to identify this user in the server
 	 * @throws URISyntaxException
 	 * @throws InterruptedException
 	 * @throws ExecutionException
@@ -291,14 +298,21 @@ public class HttpController {
 		}
 		return false;
 	}
-	
+	/**
+	 * 
+	 * @param token -  Token of the user to logout
+	 * @return if the logout has been correctly made
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
 	public static boolean logout(String token) throws  URISyntaxException, InterruptedException, ExecutionException{
 		HttpRequest.Builder request = HttpRequest.newBuilder()
 				  .uri(new URI(destination +"Logout"))
 				  .header("User", token)
 				  .GET();
 		HttpResponse<String> response = client.sendAsync(request.build(), BodyHandlers.ofString()).get();
-		if(response.body().equals("ok")) {
+		if(response.body().equals("Ok")) {
 			return true;
 		}
 		return false;
