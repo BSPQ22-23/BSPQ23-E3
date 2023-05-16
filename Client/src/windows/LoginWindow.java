@@ -112,12 +112,13 @@ public class LoginWindow {
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					boolean a = false;
+					String a = "notOK";
 					if(!textField.getText().equals("") && !passwordField_1.getText().equals("")) {
 						a = HttpController.login(textField.getText(), passwordField_1.getText());
 					}
-					if(a) {
-						new UserWindow(textField.getText());
+					System.out.println(a);
+					if(!a.equals("notOK")) {
+						new UserWindow(a);
 						frmLogin.setVisible(false);
 					}else {
 						JOptionPane.showMessageDialog(null, "Error");
