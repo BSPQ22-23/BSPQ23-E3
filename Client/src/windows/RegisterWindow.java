@@ -14,13 +14,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import Client.interText;
 import remoteConnection.HttpController;
 
 import javax.swing.JButton;
 import java.awt.Color;
 
 public class RegisterWindow {
-
+	
 	private JFrame frmRegister;
 	private JTextField textField;
 	private JTextField passwordField;
@@ -54,7 +55,7 @@ public class RegisterWindow {
 		frmRegister.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Username:");
+		JLabel lblNewLabel = new JLabel(interText.getString("username"));
 		lblNewLabel.setBounds(114, 63, 74, 14);
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		panel.add(lblNewLabel);
@@ -69,7 +70,7 @@ public class RegisterWindow {
 		frmRegister.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Password:");
+		JLabel lblNewLabel_1 = new JLabel(interText.getString("password"));
 		lblNewLabel_1.setBounds(112, 26, 74, 14);
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		panel_1.add(lblNewLabel_1);
@@ -84,13 +85,13 @@ public class RegisterWindow {
 		frmRegister.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
-		JButton backButton = new JButton("BACK");
+		JButton backButton = new JButton(interText.getString("back"));
 		backButton.setBounds(115, 39, 83, 23);
 		backButton.setForeground(new Color(255, 255, 255));
 		backButton.setBackground(new Color(128, 128, 128));
 		panel_2.add(backButton);
 		
-		JButton registerButton = new JButton("REGISTER");
+		JButton registerButton = new JButton(interText.getString("register"));
 		registerButton.setBounds(214, 39, 114, 23);
 		registerButton.setForeground(new Color(255, 255, 255));
 		registerButton.setBackground(new Color(128, 128, 128));

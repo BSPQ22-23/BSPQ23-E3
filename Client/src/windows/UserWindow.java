@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
+
+import Client.interText;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -35,7 +38,7 @@ public class UserWindow {
 
 	private void initialize() {
 		frmUser = new JFrame();
-		frmUser.setTitle("User");
+		frmUser.setTitle(interText.getString("app_title"));
 		frmUser.setBounds(100, 100, 450, 300);
 		frmUser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmUser.getContentPane().setLayout(new GridLayout(4, 0, 0, 0));
@@ -44,7 +47,7 @@ public class UserWindow {
 		panel.setBackground(new Color(128, 0, 64));
 		frmUser.getContentPane().add(panel);
 		
-		JButton myPlaylistsButton = new JButton("MY PLAYLISTS");
+		JButton myPlaylistsButton = new JButton(interText.getString("playlist"));
 		myPlaylistsButton.setBounds(159, 32, 155, 34);
 		myPlaylistsButton.setForeground(new Color(255, 255, 255));
 		myPlaylistsButton.setBackground(new Color(128, 128, 128));
@@ -60,7 +63,7 @@ public class UserWindow {
 		panel_3.setForeground(new Color(0, 0, 0));
 		frmUser.getContentPane().add(panel_3);
 		
-		JButton songCatalogButton = new JButton("SONG CATALOG");
+		JButton songCatalogButton = new JButton(interText.getString("song_catalog"));
 		songCatalogButton.setBounds(159, 21, 155, 34);
 		songCatalogButton.setBackground(new Color(128, 128, 128));
 		songCatalogButton.setForeground(new Color(255, 255, 255));
@@ -72,18 +75,18 @@ public class UserWindow {
 		frmUser.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton artistCatalogButton = new JButton("ARTIST CATALOG");
-		artistCatalogButton.setBounds(160, 11, 155, 32);
-		artistCatalogButton.setBackground(new Color(128, 128, 128));
-		artistCatalogButton.setForeground(new Color(255, 255, 255));
-		panel_1.add(artistCatalogButton);
+		JButton languageButton = new JButton(interText.getString("language"));
+		languageButton.setBounds(160, 11, 155, 32);
+		languageButton.setBackground(new Color(128, 128, 128));
+		languageButton.setForeground(new Color(255, 255, 255));
+		panel_1.add(languageButton);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(128, 0, 64));
 		frmUser.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
-		JButton logOutButton = new JButton("LOG OUT");
+		JButton logOutButton = new JButton(interText.getString("log_out"));
 		logOutButton.setBounds(187, 11, 104, 23);
 		logOutButton.setForeground(new Color(255, 255, 255));
 		logOutButton.setBackground(new Color(128, 128, 128));
@@ -113,10 +116,15 @@ public class UserWindow {
 			}
 		});
 		
-		artistCatalogButton.addActionListener(new ActionListener() {
+		languageButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new ArtistCatalogWindow(token);
+					if(interText.lan.equals("en")) {
+						interText.setlan("es");
+					}else {
+						interText.setlan("en");
+					}
+					new UserWindow(token);
 					frmUser.setVisible(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

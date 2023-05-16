@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+
+import Client.interText;
+
 import javax.swing.JList;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -32,7 +35,7 @@ public class SongCatalogWindow {
 
     private void initialize() {
         frmSongCatalog = new JFrame();
-        frmSongCatalog.setTitle("Song Catalog");
+        frmSongCatalog.setTitle(interText.getString("app_title"));
         frmSongCatalog.setBounds(100, 100, 450, 400);
         frmSongCatalog.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frmSongCatalog.getContentPane().setLayout(new GridLayout(3, 1, 0, 0));
@@ -42,7 +45,7 @@ public class SongCatalogWindow {
         frmSongCatalog.getContentPane().add(panel);
         panel.setLayout(null);
         
-        JLabel lblNewLabel = new JLabel("SONG CATALOG");
+        JLabel lblNewLabel = new JLabel(interText.getString("song_catalog"));
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
         lblNewLabel.setForeground(new Color(255, 255, 255));
         lblNewLabel.setBounds(176, 25, 127, 14);
@@ -65,7 +68,7 @@ public class SongCatalogWindow {
         System.out.println(listOfFiles.length);
         if (listOfFiles != null) {
             if (listOfFiles.length == 0) {
-                System.out.println("La carpeta audios está vacía");
+                //System.out.println("La carpeta audios está vacía");
             } else {
                 for (File file : listOfFiles) {
                     if (file.isFile()) {
@@ -83,7 +86,7 @@ public class SongCatalogWindow {
         frmSongCatalog.getContentPane().add(panel_1);
         panel_1.setLayout(null);
         
-        JButton backButton = new JButton("BACK");
+        JButton backButton = new JButton(interText.getString("back"));
         backButton.setBackground(new Color(128, 128, 128));
         backButton.setForeground(new Color(255, 255, 255));
         backButton.setBounds(179, 87, 89, 23);

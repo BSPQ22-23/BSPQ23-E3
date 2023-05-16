@@ -4,15 +4,19 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import Client.interText;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import java.awt.Color;
 
 public class MenuWindow {
-
 	private JFrame frmMenu;
 
 //	public static void main(String[] args) {
@@ -34,7 +38,7 @@ public class MenuWindow {
 
 	private void initialize() {
 		frmMenu = new JFrame();
-		frmMenu.setTitle("Menu");
+		frmMenu.setTitle(interText.getString("app_title"));
 		frmMenu.setBounds(100, 100, 450, 300);
 		frmMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMenu.getContentPane().setLayout(new GridLayout(2, 1, 0, 0));
@@ -44,7 +48,7 @@ public class MenuWindow {
 		frmMenu.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton loginButton = new JButton("LOGIN");
+		JButton loginButton = new JButton(interText.getString("login"));
 		loginButton.setForeground(new Color(255, 255, 255));
 		loginButton.setBackground(new Color(128, 128, 128));
 		loginButton.setBounds(174, 89, 115, 32);
@@ -56,7 +60,7 @@ public class MenuWindow {
 		frmMenu.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JButton registerButton = new JButton("REGISTER");
+		JButton registerButton = new JButton(interText.getString("register"));
 		registerButton.setForeground(new Color(255, 255, 255));
 		registerButton.setBackground(new Color(128, 128, 128));
 		registerButton.setBounds(175, 11, 116, 31);

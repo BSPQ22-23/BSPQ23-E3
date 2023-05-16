@@ -17,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Client.interText;
 import remoteConnection.HttpController;
 
 public class DownloadWd extends JFrame{
@@ -32,7 +33,7 @@ public class DownloadWd extends JFrame{
 //	}
 	public DownloadWd(String totem) throws URISyntaxException, InterruptedException, ExecutionException {
 		this.setTotem(totem);
-		setTitle("Download Song");
+		setTitle(interText.getString("app_title"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 350);
 
@@ -49,8 +50,8 @@ public class DownloadWd extends JFrame{
         JScrollPane scrollPane = new JScrollPane(a);
 
         // Creación de los botones
-        JButton downloadButton = new JButton("Download");
-        JButton backButton = new JButton("Back");
+        JButton downloadButton = new JButton(interText.getString("download"));
+        JButton backButton = new JButton(interText.getString("back"));
         // Creación del contenedor para los botones
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
         buttonPanel.add(downloadButton);

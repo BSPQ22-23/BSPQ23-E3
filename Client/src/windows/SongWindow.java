@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
+
+import Client.interText;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -36,7 +39,7 @@ public class SongWindow {
 
 	private void initialize() {
 		frmSong = new JFrame();
-		frmSong.setTitle("Song");
+		frmSong.setTitle(interText.getString("app_title"));
 		frmSong.setBounds(100, 100, 450, 300);
 		frmSong.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSong.getContentPane().setLayout(new GridLayout(2, 0, 0, 0));
@@ -46,17 +49,17 @@ public class SongWindow {
 		frmSong.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Title:");
+		JLabel lblNewLabel = new JLabel(interText.getString("title"));
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setBounds(101, 38, 48, 14);
 		panel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Artist:");
+		JLabel lblNewLabel_1 = new JLabel(interText.getString("artist"));
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setBounds(101, 63, 48, 14);
 		panel.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Album:");
+		JLabel lblNewLabel_2 = new JLabel(interText.getString("album"));
 		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_2.setBounds(101, 88, 48, 14);
 		panel.add(lblNewLabel_2);
@@ -66,7 +69,7 @@ public class SongWindow {
 		frmSong.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton backButton = new JButton("BACK");
+		JButton backButton = new JButton(interText.getString("back"));
 		backButton.setBackground(new Color(128, 128, 128));
 		backButton.setForeground(new Color(255, 255, 255));
 		backButton.setBounds(170, 98, 89, 23);

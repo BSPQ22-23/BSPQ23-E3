@@ -26,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Client.interText;
 import audioManagement.AudioPlayer;
 import audioManagement.SongPlayer;
 import remoteConnection.HttpController;
@@ -51,7 +52,7 @@ public class PlaylistSongs extends JFrame implements SongPlayer{
 		this.p = this;
 		this.totem = totem;
 		this.playlist = playlist;
-		setTitle("AudioPlayer");
+		setTitle(interText.getString("app_title"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 350);
 
@@ -70,7 +71,6 @@ public class PlaylistSongs extends JFrame implements SongPlayer{
 			String[] partes = i.split("_");
 			System.out.println(partes[0] + " " + partes[1]);
 			if(partes[0].equals(playlist)&&!items.contains(partes[1])) {
-				System.out.println("Dentro");
 				items.add(partes[1]);
 			}
 		}
@@ -78,8 +78,8 @@ public class PlaylistSongs extends JFrame implements SongPlayer{
         JScrollPane scrollPane = new JScrollPane(a);
 
         // Creación de los botones
-        stopButton = new JButton("Stop");
-        JButton backButton = new JButton("Back");
+        stopButton = new JButton(interText.getString("stop"));
+        JButton backButton = new JButton(interText.getString("back"));
         
         // Creación del contenedor para los botones
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
@@ -97,10 +97,10 @@ public class PlaylistSongs extends JFrame implements SongPlayer{
 				try {
 					if(AudioPlayer.playing()) {
 						AudioPlayer.stopAudioClip();
-						stopButton.setText("Resume");
+						stopButton.setText(interText.getString("resume"));
 					}else {
 						AudioPlayer.resumeAudioClip();
-						stopButton.setText("Stop");
+						stopButton.setText(interText.getString("stop"));
 					}
 				} catch (Exception e2) {
 					System.out.println("ERROR!!! Not able to stop");
@@ -134,7 +134,7 @@ public class PlaylistSongs extends JFrame implements SongPlayer{
     					}
     				}
     				
-    				stopButton.setText("Stop");
+    				stopButton.setText(interText.getString("stop"));
                 }
             }
         });
@@ -154,7 +154,7 @@ public class PlaylistSongs extends JFrame implements SongPlayer{
 			String[] partes = i.split("_");
 			if(partes[1].equals(a.getModel().getElementAt(song))) {
 				AudioPlayer.playNewAudioClip(listOfFiles[song].getAbsolutePath(), p);
-				stopButton.setText("Stop");
+				stopButton.setText(interText.getString("stop"));
 				break;
 			}
 		}

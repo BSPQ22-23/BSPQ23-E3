@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Client.interText;
 import audioManagement.AudioPlayer;
 import remoteConnection.HttpController;
 
@@ -48,7 +49,7 @@ public class PlaylistWindow extends JFrame{
 	public PlaylistWindow(String totem) {
 		listOfFiles = new ArrayList<File>();
 		this.totem = totem;
-		setTitle("PlayList List");
+		setTitle(interText.getString("app_title"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 350);
 
@@ -78,8 +79,8 @@ public class PlaylistWindow extends JFrame{
         JScrollPane scrollPane = new JScrollPane(a);
 
         // Creación de los botones
-        JButton deleteButton = new JButton("Delete");
-        JButton backButton = new JButton("Back");
+        JButton deleteButton = new JButton(interText.getString("delete"));
+        JButton backButton = new JButton(interText.getString("back"));
         
         // Creación del contenedor para los botones
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
@@ -109,11 +110,11 @@ public class PlaylistWindow extends JFrame{
 							Boolean temp = false;
 							for(String i: copy) {
 								String[] partes = i.split("_");
-								System.out.println("Items: " + items.get(num) + "Parte[0]: " + partes[0]);
+								//System.out.println("Items: " + items.get(num) + "Parte[0]: " + partes[0]);
 								if(items.get(num).equals(partes[0])&&allsongs.contains(i)) {
 									
 									File todelete = new File(listOfFiles.get(allsongs.indexOf(i)).getAbsolutePath());
-									System.out.println("Canción: " + i + " Index: " + allsongs.indexOf(i) + " Archivo: " + todelete.getName());
+									//System.out.println("Canción: " + i + " Index: " + allsongs.indexOf(i) + " Archivo: " + todelete.getName());
 									if(todelete.delete()) {
 										temp = true;
 										

@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Client.interText;
 import audioManagement.AudioPlayer;
 import audioManagement.SongPlayer;
 import remoteConnection.HttpController;
@@ -78,11 +79,11 @@ public class Player extends JFrame implements SongPlayer{
         JScrollPane scrollPane = new JScrollPane(a);
 
         // Creación de los botones
-        JButton deleteButton = new JButton("Delete");
-        stopButton = new JButton("Stop");
-        JButton uploadSong = new JButton("Upload Songs");
-        JButton downloadButton = new JButton("Download");
-        JButton backButton = new JButton("Back");
+        JButton deleteButton = new JButton(interText.getString("delete"));
+        stopButton = new JButton(interText.getString("stop"));
+        JButton uploadSong = new JButton(interText.getString("upload_song"));
+        JButton downloadButton = new JButton(interText.getString("download"));
+        JButton backButton = new JButton(interText.getString("back"));
         
         // Creación del contenedor para los botones
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
@@ -104,7 +105,7 @@ public class Player extends JFrame implements SongPlayer{
 				if(a.getSelectedIndex()>=0) {
 					if(AudioPlayer.playing()) {
 						AudioPlayer.stopAudioClip();
-						stopButton.setText("Stop");
+						stopButton.setText(interText.getString("stop"));
 					}
 					song  = a.getSelectedIndex();
 					File todelete = new File(listOfFiles[song].getAbsolutePath());
@@ -132,10 +133,10 @@ public class Player extends JFrame implements SongPlayer{
 				try {
 					if(AudioPlayer.playing()) {
 						AudioPlayer.stopAudioClip();
-						stopButton.setText("Resume");
+						stopButton.setText(interText.getString("resume"));
 					}else {
 						AudioPlayer.resumeAudioClip();
-						stopButton.setText("Stop");
+						stopButton.setText(interText.getString("stop"));
 					}
 				} catch (Exception e2) {
 					System.out.println("ERROR!!! Not able to stop");
@@ -188,7 +189,7 @@ public class Player extends JFrame implements SongPlayer{
     				
     				AudioPlayer.playNewAudioClip(listOfFiles[song].getAbsolutePath(), p);
     				
-    				stopButton.setText("Stop");
+    				stopButton.setText(interText.getString("stop"));
                 }
             }
         });
@@ -210,6 +211,6 @@ public class Player extends JFrame implements SongPlayer{
 			song = a.getFirstVisibleIndex();
 		}
 		AudioPlayer.playNewAudioClip(listOfFiles[song].getAbsolutePath(), p);
-		stopButton.setText("Stop");
+		stopButton.setText(interText.getString("stop"));
 	}
 }

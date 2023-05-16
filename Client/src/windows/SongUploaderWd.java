@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Client.interText;
 import remoteConnection.HttpController;
 
 public class SongUploaderWd extends JFrame {
@@ -24,13 +25,13 @@ public class SongUploaderWd extends JFrame {
     String fileButText;
     String totem;
     public SongUploaderWd(Player player, String totem) {
-        super("Song Uploader");
+        super(interText.getString("app_title"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.totem = totem;
         // create the label and text field for the first name
 
         // create the button to select a file
-        fileButText = "Choose file...";
+        fileButText = interText.getString("choose_file");
         fileButton = new JButton(fileButText);
         fileButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -39,7 +40,7 @@ public class SongUploaderWd extends JFrame {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     selectedFile = fileChooser.getSelectedFile();
                     System.out.println(selectedFile.getName());
-                    fileButText = "Choose file (" + selectedFile.getName() +")";
+                    fileButText =  interText.getString("choose_file") + "(" + selectedFile.getName() +")";
                     fileButton.setText(fileButText);
                     // do something with the selected file
                 }
@@ -47,7 +48,7 @@ public class SongUploaderWd extends JFrame {
         });
 
         // create the label and text field for the second name
-        JLabel secondNameLabel = new JLabel("Album:");
+        JLabel secondNameLabel = new JLabel(interText.getString("album"));
         JLabel playlistLabel = new JLabel("PlayList:");
         secondNameField = new JTextField(20);
         playlistField = new JTextField(20);
@@ -59,7 +60,7 @@ public class SongUploaderWd extends JFrame {
         secondNamePanel.add(playlistField, BorderLayout.SOUTH);
 
         // create the button to submit the form
-        JButton submitButton = new JButton("Submit");
+        JButton submitButton = new JButton(interText.getString("sumbit"));
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // handle form submission
@@ -77,7 +78,7 @@ public class SongUploaderWd extends JFrame {
 
             }
         });
-        JButton returnToP = new JButton("Back");
+        JButton returnToP = new JButton(interText.getString("back"));
         returnToP.addActionListener(new ActionListener() {
 			
 			@Override
