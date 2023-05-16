@@ -1,0 +1,31 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node0 [label="HttpHandler",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node0 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node1 [label="httpHandler.CreatePlaylist",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_create_playlist.html",tooltip=" "];
+  Node0 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="httpHandler.DeletePlaylist",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_delete_playlist.html",tooltip=" "];
+  Node0 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="httpHandler.DeleteSong",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_delete_song.html",tooltip=" "];
+  Node0 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="httpHandler.GetPlaylists",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_get_playlists.html",tooltip=" "];
+  Node0 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="httpHandler.LogOutHandler",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_log_out_handler.html",tooltip=" "];
+  Node0 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node6 [label="httpHandler.LoginHandler",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_login_handler.html",tooltip=" "];
+  Node0 -> Node7 [dir="back",color="steelblue1",style="solid"];
+  Node7 [label="httpHandler.ReceiveFileFrom\lClientHandler",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_receive_file_from_client_handler.html",tooltip=" "];
+  Node0 -> Node8 [dir="back",color="steelblue1",style="solid"];
+  Node8 [label="httpHandler.RegisterHandler",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_register_handler.html",tooltip=" "];
+  Node0 -> Node9 [dir="back",color="steelblue1",style="solid"];
+  Node9 [label="httpHandler.SendAvilable\lSongsHandler",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_send_avilable_songs_handler.html",tooltip=" "];
+  Node0 -> Node10 [dir="back",color="steelblue1",style="solid"];
+  Node10 [label="httpHandler.SendMusicToClient\lHandler",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_send_music_to_client_handler.html",tooltip=" "];
+  Node0 -> Node11 [dir="back",color="steelblue1",style="solid"];
+  Node11 [label="httpHandler.SendPlaylist\lSongs",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_send_playlist_songs.html",tooltip=" "];
+}

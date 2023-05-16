@@ -1,0 +1,21 @@
+digraph "dao.PlaylistDAO.getInstance"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [label="dao.PlaylistDAO.getInstance",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="httpHandler.DeletePlaylist.handle",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_delete_playlist.html#a761680858dacd7a598fa0f9a3df97c10",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="httpHandler.DeleteSong.handle",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_delete_song.html#a354ada47f52b2bfb25278b9f70fa4ca7",tooltip=" "];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="httpHandler.GetPlaylists.handle",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_get_playlists.html#a5f434d7421a21ba7f4f6dbc25357e0c4",tooltip=" "];
+  Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="httpHandler.SendPlaylist\lSongs.handle",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_send_playlist_songs.html#a965be22e177cfc45f7c3090c1e645237",tooltip=" "];
+  Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node6 [label="test.DataBaseTest.test",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classtest_1_1_data_base_test.html#accdc7f1950248aee8f7c28a72c798bee",tooltip=" "];
+  Node1 -> Node7 [dir="back",color="steelblue1",style="solid"];
+  Node7 [label="PerformanceTest.testPlaylist\lSaving",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_performance_test.html#ad0b7a38b175c495880458c3f58a873d2",tooltip=" "];
+}

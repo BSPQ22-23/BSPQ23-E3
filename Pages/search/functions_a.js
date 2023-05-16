@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['test_0',['test',['../classtest_1_1_data_base_test.html#accdc7f1950248aee8f7c28a72c798bee',1,'test::DataBaseTest']]],
+  ['test2_1',['test2',['../class_performance_test.html#a2e63cf42cec68694b3756a41752bdd5d',1,'PerformanceTest']]],
+  ['testaddplaylist_2',['testAddPlaylist',['../classtest_1_1_user_test.html#a91c3f0cfa83f9dc3b29949d143c5e4d1',1,'test::UserTest']]],
+  ['testaddsong_3',['testAddSong',['../classtest_1_1_playlist_test.html#a52af96ec98af4f4c621a4c5e9f19f1bc',1,'test::PlaylistTest']]],
+  ['testgetalbum_4',['testGetAlbum',['../classtest_1_1_song_test.html#a121367c8221db8e8dafda203391c14a3',1,'test::SongTest']]],
+  ['testgetname_5',['testGetName',['../classtest_1_1_playlist_test.html#ac2d7706c953a10c14e6876a0cc9f9e93',1,'test.PlaylistTest.testGetName()'],['../classtest_1_1_song_test.html#a7f1a0ed3eac35bed409bc409cb7e3fda',1,'test.SongTest.testGetName()']]],
+  ['testgetpassword_6',['testGetPassword',['../classtest_1_1_user_test.html#a5de648e7b84c2bb693c3c44f940bee6f',1,'test::UserTest']]],
+  ['testgetplaylist_7',['testGetPlaylist',['../classtest_1_1_user_test.html#ac6b5d30a83ad6c2f05e9b9510ba73d8f',1,'test::UserTest']]],
+  ['testgetspecificplwithexistingpl_8',['testGetSpecificPLWithExistingPL',['../classtest_1_1_user_test.html#a0ae4ba7a7b24a3a26cf074f7e4d194a3',1,'test::UserTest']]],
+  ['testgetspecificplwithnonexistingpl_9',['testGetSpecificPLWithNonExistingPL',['../classtest_1_1_user_test.html#af1fe45b1d39ea47f6bcf07d78b9d0abd',1,'test::UserTest']]],
+  ['testgetusername_10',['testGetUsername',['../classtest_1_1_user_test.html#a2b0b8f8a25724e281dca70a2fb237692',1,'test::UserTest']]],
+  ['testisadmin_11',['testIsAdmin',['../classtest_1_1_user_test.html#a143de0a2d23180677e08fcecadace58a',1,'test::UserTest']]],
+  ['testplaylistsaving_12',['testPlaylistSaving',['../class_performance_test.html#ad0b7a38b175c495880458c3f58a873d2',1,'PerformanceTest']]],
+  ['testremovesong_13',['testRemoveSong',['../classtest_1_1_playlist_test.html#ace81c14c8038f6e1849e6ce169fdeb7a',1,'test::PlaylistTest']]],
+  ['testsetadmin_14',['testSetAdmin',['../classtest_1_1_user_test.html#ab75fc32f9185cc3691b27ce33180df5e',1,'test::UserTest']]],
+  ['testsetalbum_15',['testSetAlbum',['../classtest_1_1_song_test.html#ae0502c8eebf59593f150f72b8d15e930',1,'test::SongTest']]],
+  ['testsetpassword_16',['testSetPassword',['../classtest_1_1_user_test.html#a4ebdfbde7935898e4bb020b43ae1f2ce',1,'test::UserTest']]],
+  ['testsetplaylist_17',['testSetPlaylist',['../classtest_1_1_user_test.html#a54bdb9cd6aade42904c191adce9e3b04',1,'test::UserTest']]],
+  ['testsetusername_18',['testSetUsername',['../classtest_1_1_user_test.html#a3257d7c29457aaa0b82bb13ce9cce683',1,'test::UserTest']]]
+];

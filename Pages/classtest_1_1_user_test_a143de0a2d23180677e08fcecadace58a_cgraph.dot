@@ -1,0 +1,11 @@
+digraph "test.UserTest.testIsAdmin"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="test.UserTest.testIsAdmin",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="data.User.isAdmin",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classdata_1_1_user.html#a7b4fa76cdb1152c7e71ace37ab5b4103",tooltip=" "];
+}

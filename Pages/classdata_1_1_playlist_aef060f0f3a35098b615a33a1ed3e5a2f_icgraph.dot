@@ -1,0 +1,15 @@
+digraph "data.Playlist.addSong"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [label="data.Playlist.addSong",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="httpHandler.ReceiveFileFrom\lClientHandler.handle",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classhttp_handler_1_1_receive_file_from_client_handler.html#a9de1219b07d398d7a6dafeee953de3cd",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="test.PlaylistTest.testAddSong",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classtest_1_1_playlist_test.html#a52af96ec98af4f4c621a4c5e9f19f1bc",tooltip=" "];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="test.PlaylistTest.testRemoveSong",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classtest_1_1_playlist_test.html#ace81c14c8038f6e1849e6ce169fdeb7a",tooltip=" "];
+}

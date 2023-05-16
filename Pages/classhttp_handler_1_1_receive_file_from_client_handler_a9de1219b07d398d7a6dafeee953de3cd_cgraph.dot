@@ -1,0 +1,19 @@
+digraph "httpHandler.ReceiveFileFromClientHandler.handle"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="httpHandler.ReceiveFileFrom\lClientHandler.handle",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="data.Playlist.addSong",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classdata_1_1_playlist.html#aef060f0f3a35098b615a33a1ed3e5a2f",tooltip=" "];
+  Node1 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="dao.UserDAO.find",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classdao_1_1_user_d_a_o.html#ae7bd4491656b55c225907d3a9b86fcb5",tooltip=" "];
+  Node1 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="dao.UserDAO.getInstance",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classdao_1_1_user_d_a_o.html#a80debe8257b2530374dc850e707ee9d0",tooltip=" "];
+  Node1 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="data.User.getSpecificPL",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classdata_1_1_user.html#a1e55794fa09b299c02eb70661cf78936",tooltip=" "];
+  Node1 -> Node6 [color="steelblue1",style="solid"];
+  Node6 [label="dao.UserDAO.updateUser",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classdao_1_1_user_d_a_o.html#a73c83cd9229fc11c86c6b945ad0195c5",tooltip=" "];
+}

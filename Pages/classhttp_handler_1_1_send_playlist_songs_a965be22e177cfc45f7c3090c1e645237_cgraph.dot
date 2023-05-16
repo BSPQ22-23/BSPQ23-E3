@@ -1,0 +1,17 @@
+digraph "httpHandler.SendPlaylistSongs.handle"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="httpHandler.SendPlaylist\lSongs.handle",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="dao.PlaylistDAO.find",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classdao_1_1_playlist_d_a_o.html#a25977c7d248359ad5ae5a6cacb4bf695",tooltip=" "];
+  Node2 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="data.Playlist.getName",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classdata_1_1_playlist.html#a29844080fe012034f091b98138ea6765",tooltip=" "];
+  Node1 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="dao.PlaylistDAO.getInstance",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classdao_1_1_playlist_d_a_o.html#aac30065db2512efa8a058b35d342c65c",tooltip=" "];
+  Node1 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="data.Playlist.getSongs",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classdata_1_1_playlist.html#a09858d451ab2f59c3a40720316ff82c9",tooltip=" "];
+}
