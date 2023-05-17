@@ -74,7 +74,22 @@ public class AudioPlayer {
 		}
 	}
 	
+	public static void CloseClip() {
+		if(clip == null) return;
+		playeando = false;
+		clipTime = 0;
+		clip.close();
+		try {
+			ais.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 	public static void stopAudioClip() {
+		if(clip == null) return;
 		playeando = false;
 		clipTime = clip.getMicrosecondPosition();
 		clip.stop();

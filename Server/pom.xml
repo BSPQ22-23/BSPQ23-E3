@@ -80,7 +80,7 @@
                 <configuration>
                   <api>JDO</api>
                   <verbose>false</verbose>
-                  <props>${project.basedir}src/resources/datanucleus.properties</props>
+                  <props>${project.basedir}/resources/datanucleus.properties</props>
                 </configuration>
                 <executions>
                   <execution>
@@ -109,7 +109,7 @@
                                     <directory>resources</directory>
                                     <filtering>true</filtering>
                                     <includes>
-                                        <include>${project.basedir}src/resources/datanucleus.properties</include>
+                                        <include>datanucleus.properties</include>
                                     </includes>
                                 </resource>
                             </resources>

@@ -105,6 +105,8 @@ public class Player extends JFrame implements SongPlayer{
 				if(a.getSelectedIndex()>=0) {
 					if(AudioPlayer.playing()) {
 						AudioPlayer.stopAudioClip();
+						
+						AudioPlayer.CloseClip();
 						stopButton.setText(interText.getString("stop"));
 					}
 					song  = a.getSelectedIndex();
@@ -171,6 +173,8 @@ public class Player extends JFrame implements SongPlayer{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				AudioPlayer.stopAudioClip();
+				AudioPlayer.CloseClip();
 				dispose();
 				new UserWindow(totem);
 				
