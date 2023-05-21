@@ -14,7 +14,7 @@ public class Playlist {
 	private ArrayList<Song> songList;
 	private String name;
 	/**
-	 * 
+	 * prueba
 	 * @param name
 	 */
 	public Playlist(String name) {
