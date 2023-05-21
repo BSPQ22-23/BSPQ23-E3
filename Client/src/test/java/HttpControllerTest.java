@@ -11,19 +11,21 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import main.java.remoteConnection.HttpController;
 
 public class HttpControllerTest {
-
+	private String token;
 	@Before
 	public void startup() throws Exception {
 		 HttpController.setService("127.0.0.1", 8000);
 		 HttpController.sendFile("ds.wav", "WiWi", "LoLo", "user1");
+		 HttpController.register("YO", "1234");
+		 token = HttpController.login("YO", "1234");
 	}
-
     @Test
     public void testSetService() throws IOException, URISyntaxException {
         HttpController.setService("127.0.0.1", 8000);
@@ -35,8 +37,7 @@ public class HttpControllerTest {
 
     @Test
     public void testSendFile() throws IOException, URISyntaxException, InterruptedException, ExecutionException {
-        HttpController.setService("127.0.0.1", 8000);
-        HttpResponse<String> response = HttpController.sendFile("ds.wav", "pop", "LoLo", "user1");
+        HttpResponse<String> response = HttpController.sendFile("ds.wav", "pop", "LoLo", token);
         int expected = 200;
         int actual = response.statusCode();
         assertEquals(expected, actual);
@@ -45,7 +46,7 @@ public class HttpControllerTest {
 
     @Test
     public void testRecieveFile() throws IOException, URISyntaxException, InterruptedException, ExecutionException {
-        HttpController.setService("127.0.0.1", 8000);
+        
         HttpController.recieveFile("LoLo_ds.wav");
         File file = new File("LoLo_ds.wav");
         assertTrue(file.exists());
@@ -61,7 +62,7 @@ public class HttpControllerTest {
     
     @Test
     public void testRecievePlaylistSongs() throws URISyntaxException, InterruptedException, ExecutionException, IOException {
-        HttpController.setService("127.0.0.1", 8000);
+
         ArrayList<String> playlistSongs = HttpController.recievePlaylistSongs("LoLo");
         assertTrue(playlistSongs.contains("LoLo_ds.wav"));
     }
@@ -69,9 +70,20 @@ public class HttpControllerTest {
 
     @Test
 	public void testCreatePlaylist() throws URISyntaxException, InterruptedException, ExecutionException, IOException {
-		HttpController.setService("127.0.0.1", 8000);
-		assertTrue(HttpController.createPlaylist("Help", "user1"));
-		assertFalse(HttpController.createPlaylist("Hello", "user1"));
-		assertTrue(HttpController.recievePlaylistSongs("Huat	").isEmpty());
+		assertTrue(HttpController.createPlaylist("Help", token));
+		assertFalse(HttpController.createPlaylist("Hello", token));
+	}
+    @Test
+    public void deleteSongTest() throws URISyntaxException, InterruptedException, ExecutionException {
+    	assertTrue(HttpController.deleteSong("LoLo_ds.wav", token));
+    }
+    @Test
+    public void deletePlayList() throws URISyntaxException, InterruptedException, ExecutionException
+    {
+    	assertEquals("NaN", HttpController.deletePlaylist("Help", token));;
+    }
+    @After
+	public void paterminar() throws Exception {
+		HttpController.logout(token);
 	}
 }
