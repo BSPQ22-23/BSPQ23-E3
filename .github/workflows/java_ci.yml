@@ -17,26 +17,41 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Prepare database for integration tests
-        run: | 
-          sudo /etc/init.d/mysql start
-          mysql -uroot -proot < sql/cancioncitas.sql
-          mvn --batch-mode --update-snapshots compile datanucleus:enhance datanucleus:schema-delete -DskipTests -pl Server
+      
+      - run: mvn compile
+      - name: Install doxygen
+        run: sudo apt-get install -y doxygen
+      - name: Install graphviz
+        run: sudo apt-get install -y graphviz
+      - name: Generate documentation
+        run: mvn doxygen:report
+      - name: Publish on Github Pages
+        uses: crazy-max/ghaction-github-pages@v2.3.0
+        with:
+          target_branch: gh-pages
+          build_dir: target/doxygen/html
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Run server
         run: | 
           mvn --batch-mode --update-snapshots datanucleus:enhance exec:java -pl Server &
-
-      - name: Run JUnits
-        run: | 
-          sleep 5  
-          mvn --batch-mode --update-snapshots test -pl Server
-          mvn --batch-mode --update-snapshots test -pl Client
 
       - name: Build client
         run: |
           mvn --batch-mode --update-snapshots install -pl Client -DskipTests
           echo ${{ steps.version.outputs.TAG_NAME }}
 
+      # - name: Prepare database for integration tests
+      #   run: | 
+      #     sudo /etc/init.d/mysql start
+      #     mysql -uroot -proot < sql/cancioncitas.sql
+
+      - name: Run JUnits
+        run: | 
+          sleep 5  
+          mvn --batch-mode --update-snapshots test -pl Server
+          mvn --batch-mode --update-snapshots test -pl Client
       - name: Retrieve version
         run: echo "::set-output name=TAG_NAME::$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)"
         id: version
@@ -48,22 +63,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload client binary to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./Client/target/Client-0.1_Beta.jar
-          asset_name: Client.jar
-          tag: ${{ steps.version.outputs.TAG_NAME }}
-          release_name: ${{ steps.version.outputs.TAG_NAME }}
-          overwrite: true
+      # - name: Upload client binary to release
+      #   uses: svenstaro/upload-release-action@v2
+      #   with:
+      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+      #     file: ./Client/target/Client-0.1_Beta.jar
+      #     asset_name: Client.jar
+      #     tag: ${{ steps.version.outputs.TAG_NAME }}
+      #     release_name: ${{ steps.version.outputs.TAG_NAME }}
+      #     overwrite: true
       
-      - name: Upload Server binary to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./Server/target/Server-0.1_Beta.jar
-          asset_name: Server.jar
-          tag: ${{ steps.version.outputs.TAG_NAME }}
-          release_name: ${{ steps.version.outputs.TAG_NAME }}
-          overwrite: true
+      # - name: Upload Server binary to release
+      #   uses: svenstaro/upload-release-action@v2
+      #   with:
+      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+      #     file: ./Server/target/Server-0.1_Beta.jar
+      #     asset_name: Server.jar
+      #     tag: ${{ steps.version.outputs.TAG_NAME }}
+      #     release_name: ${{ steps.version.outputs.TAG_NAME }}
+      #     overwrite: true

@@ -21,6 +21,7 @@
   <url>http://www.example.com</url>
 
   <properties>
+    <doxygen.config.file>${basedir}/Server/src/main/resources/Doxyfile</doxygen.config.file>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.11</maven.compiler.source>
     <maven.compiler.target>1.11</maven.compiler.target>
@@ -118,6 +119,14 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+        <plugin>
+          <groupId>com.soebes.maven.plugins</groupId>
+          <artifactId>doxygen-maven-plugin</artifactId>
+          <version>1.1.0</version>
+          <configuration>
+            <configurationFile>${doxygen.config.file}</configurationFile>
+          </configuration>
+			  </plugin>
 		<plugin>
 			<groupId>org.jacoco</groupId>
 			<artifactId>jacoco-maven-plugin</artifactId>
