@@ -7,14 +7,10 @@
   <groupId>SPQ3</groupId>
   <artifactId>SPQ3</artifactId>
   <version>0.1_Beta</version>
-  <profiles>
-    <profile>
-      <modules> 
-        <module>Client</module>
-        <module>Server</module>
-      </modules>
-    </profile>
-  </profiles>
+  <modules> 
+    <module>Client</module>
+    <module>Server</module>
+  </modules>
 <packaging>pom</packaging>
   <name>Parent</name>
   <!-- FIXME change it to the project's website -->
