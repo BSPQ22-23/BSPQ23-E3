@@ -20,14 +20,14 @@ public class AudioPlayerTest {
 
     @Test
     public void testPlayNewAudioClip() throws InterruptedException {
-        AudioPlayer.playNewAudioClip1("src/songs/ds.wav");
+        AudioPlayer.playNewAudioClip1("src/test/java/ds.wav");
         Thread.sleep(100);
         assertTrue(AudioPlayer.playing());
     }
 
     @Test
     public void testStopAudioClip() throws InterruptedException {
-        AudioPlayer.playNewAudioClip1("src/songs/ds.wav");
+        AudioPlayer.playNewAudioClip1("src/test/java/ds.wav");
         Thread.sleep(100);
         AudioPlayer.stopAudioClip();
         Thread.sleep(100);
@@ -36,7 +36,7 @@ public class AudioPlayerTest {
 
     @Test
     public void testResumeAudioClip() throws InterruptedException {
-        AudioPlayer.playNewAudioClip1("src/songs/ds.wav");
+        AudioPlayer.playNewAudioClip1("src/test/java/ds.wav");
         Thread.sleep(100);
         long clipTime = AudioPlayer.getTime();
         Thread.sleep(100);
@@ -54,14 +54,14 @@ public class AudioPlayerTest {
 
     @Test
     public void testActive() throws InterruptedException {
-        AudioPlayer.playNewAudioClip1("src/songs/ds.wav");
+        AudioPlayer.playNewAudioClip1("src/test/java/ds.wav");
         Thread.sleep(100);
         assertTrue(AudioPlayer.active());
     }
 
     @Test
     public void testPlaying() throws InterruptedException {
-    	AudioPlayer.playNewAudioClip1("src/songs/ds.wav");
+    	AudioPlayer.playNewAudioClip1("src/test/java/ds.wav");
     	AudioPlayer.stopAudioClip();
     	Thread.sleep(100);
         assertFalse(AudioPlayer.playing());
@@ -69,7 +69,7 @@ public class AudioPlayerTest {
 
     @Test
     public void testGetTime() throws InterruptedException {
-        AudioPlayer.playNewAudioClip1("src/songs/ds.wav");
+        AudioPlayer.playNewAudioClip1("src/test/java/ds.wav");
         Thread.sleep(100);
         long clipTime = AudioPlayer.getTime();
         assertTrue(clipTime >= 0);

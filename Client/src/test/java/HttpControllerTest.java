@@ -21,8 +21,7 @@ public class HttpControllerTest {
 	@Before
 	public void startup() throws Exception {
 		 HttpController.setService("127.0.0.1", 8000);
-		 //HttpController.register("user1", "Contra");
-		 HttpController.sendFile("src/songs/ds.wav", "WiWi", "LoLo", "user1");
+		 HttpController.sendFile("ds.wav", "WiWi", "LoLo", "user1");
 	}
 
     @Test
@@ -34,11 +33,10 @@ public class HttpControllerTest {
     }
 
 
-
     @Test
     public void testSendFile() throws IOException, URISyntaxException, InterruptedException, ExecutionException {
         HttpController.setService("127.0.0.1", 8000);
-        HttpResponse<String> response = HttpController.sendFile("src/songs/ds.wav", "pop", "LoLo", "user1");
+        HttpResponse<String> response = HttpController.sendFile("ds.wav", "pop", "LoLo", "user1");
         int expected = 200;
         int actual = response.statusCode();
         assertEquals(expected, actual);
