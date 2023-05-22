@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import data.Playlist;
 
 public class PlaylistDAO extends DataAccessObjectBase implements IDataAccessObject<Playlist>{
+	
 
 	private static PlaylistDAO instance;
 	private PlaylistDAO() {}
@@ -88,5 +90,12 @@ public class PlaylistDAO extends DataAccessObjectBase implements IDataAccessObje
 
 		return result;
 	}
+	
+	public void setPmf(PersistenceManagerFactory pmf) {
+        PlaylistDAO.pmf = pmf;
+    }
+	
+
+	
 
 }
