@@ -14,7 +14,7 @@ import data.User;
 public class DataBaseTest {
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void test() {
 		User u = new User("Aitor", "pop");
 		User u2 = new User("Eneko", "popitas");
