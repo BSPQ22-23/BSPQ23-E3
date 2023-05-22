@@ -11,6 +11,7 @@ import javax.jdo.Transaction;
 import data.Playlist;
 
 public class PlaylistDAO extends DataAccessObjectBase implements IDataAccessObject<Playlist>{
+	
 
 	private static PlaylistDAO instance;
 	private PlaylistDAO() {}
@@ -88,5 +89,7 @@ public class PlaylistDAO extends DataAccessObjectBase implements IDataAccessObje
 
 		return result;
 	}
+	
+	
 
 }
