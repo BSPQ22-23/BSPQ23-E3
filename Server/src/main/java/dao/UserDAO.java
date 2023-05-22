@@ -1,10 +1,12 @@
 package dao;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
@@ -104,4 +106,7 @@ public class UserDAO extends DataAccessObjectBase implements IDataAccessObject<U
 
 		return result;
 	}
+	 public void setPmf(PersistenceManagerFactory pmf) {
+	        UserDAO.pmf = pmf;
+	    }
 }

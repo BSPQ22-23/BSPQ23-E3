@@ -38,6 +38,10 @@ public class User {
 		username = name;
 		this.password = Password;
 	}
+	public User() {
+		
+    }
+
 
 	/**
 	 * 
