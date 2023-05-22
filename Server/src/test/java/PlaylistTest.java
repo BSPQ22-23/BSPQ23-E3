@@ -8,7 +8,6 @@ import data.Playlist;
 import data.Song;
 
 public class PlaylistTest {
-
 	
 	private Playlist playlist;
 	
