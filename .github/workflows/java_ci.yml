@@ -17,14 +17,16 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      
       - run: mvn compile
       - name: Install doxygen
         run: sudo apt-get install -y doxygen
+
       - name: Install graphviz
         run: sudo apt-get install -y graphviz
+
       - name: Generate documentation
         run: mvn doxygen:report
+
       - name: Publish on Github Pages
         uses: crazy-max/ghaction-github-pages@v2.3.0
         with:
@@ -42,26 +44,62 @@ jobs:
           mvn --batch-mode --update-snapshots install -pl Client -DskipTests
           echo ${{ steps.version.outputs.TAG_NAME }}
 
-      # - name: Prepare database for integration tests
-      #   run: | 
-      #     sudo /etc/init.d/mysql start
-      #     mysql -uroot -proot < sql/cancioncitas.sql
-
+      - name: Prepare database for integration tests
+        run: | 
+          sudo /etc/init.d/mysql start
+          mysql -uroot -proot < sql/cancioncitas.sql
+      
       - name: Run JUnits
         run: | 
           sleep 5  
           mvn --batch-mode --update-snapshots test -pl Server
           mvn --batch-mode --update-snapshots test -pl Client
+
       - name: Retrieve version
         run: echo "::set-output name=TAG_NAME::$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)"
         id: version
-
       - uses: dev-drprasad/delete-tag-and-release@v0.2.1
         with:
           delete_release: true
           tag_name: ${{ steps.version.outputs.TAG_NAME }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sleep 20 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: "20s"
+
+      - name: Upload Report
+        uses: "actions/upload-artifact@v2"
+        with:
+          name: Jacoco Report ZIP
+          path: ${{ github.workspace }}/target/site/jacoco/
+
+      - name: JaCoCo Code Coverage Report
+        id: jacoco_reporter
+        uses: PavanMudigonda/jacoco-reporter@v4.4
+        with:
+          coverage_results_path: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
+          coverage_report_name: Coverage
+          coverage_report_title: JaCoCo
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          skip_check_run: false
+          minimum_coverage: 50
+          fail_below_threshold: false
+          publish_only_summary: false
+
+      - name: Upload Code Coverage Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report
+          path: "*/coverage-results.md"
+          retention-days: 1
+
+      - name: Get the Coverage info
+        run: |
+          echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
+          echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
 
       # - name: Upload client binary to release
       #   uses: svenstaro/upload-release-action@v2
