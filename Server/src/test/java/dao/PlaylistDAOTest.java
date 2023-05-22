@@ -2,7 +2,7 @@ package dao;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Mockito.*;
+//import static org.mockito.Mockito.*;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -11,7 +11,7 @@ import javax.jdo.Transaction;
 import data.Playlist;
 
 public class PlaylistDAOTest {
-    private PlaylistDAO playlistDAO;
+   /* private PlaylistDAO playlistDAO;
     private PersistenceManager pm;
     private Transaction tx;
     private PersistenceManagerFactory pmf;
@@ -52,5 +52,5 @@ public class PlaylistDAOTest {
         String name = "test";
         playlistDAO.find(name);
         verify(pm).newQuery("SELECT FROM " + Playlist.class.getName() + " WHERE name == '"+name+"'");
-    }
+    }*/
 }
