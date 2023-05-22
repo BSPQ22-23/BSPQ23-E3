@@ -1,7 +1,7 @@
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 
 import dao.PlaylistDAO;
@@ -12,16 +12,16 @@ import data.Song;
 import data.User;
 
 public class DataBaseTest {
-
-	@Test
-	@Ignore
-	public void test() {
+	private Song s;
+	private Playlist pl;
+	@Before
+	public void insert() throws InterruptedException {
 		User u = new User("Aitor", "pop");
 		User u2 = new User("Eneko", "popitas");
 		u.setAdmin(true);
 		u.setPassword("1234");
-		Song s = new Song("Rick Roll 2", "pito");
-		Playlist pl = new Playlist("try2");
+		s = new Song("Rick Roll 2", "pito");
+		pl = new Playlist("try2");
 		pl.getSongs().add(s);
 		u.getPlaylist().put("try2",pl);
 		u2.setPassword("1234");
@@ -31,6 +31,12 @@ public class DataBaseTest {
 		u2.getPlaylist().put("try1",pl2);
 		UserDAO.getInstance().save(u);
 		UserDAO.getInstance().save(u2);
+		Thread.sleep(2000);
+	}
+	
+	@Test
+	//@Ignore
+	public void test() {
 		User u3 = UserDAO.getInstance().find("Eneko");
 		assertEquals("Eneko", u3.getUsername());
 		assertEquals(pl.getName(), PlaylistDAO.getInstance().find("try2").getName());
