@@ -20,3 +20,6 @@ Also, the music MUST be in .wav file format in order to be uploaded/downloaded
 
 Compiling:
 mvn -DskipTest compile
+
+# Documentation
+https://bspq22-23.github.io/BSPQ23-E3/
