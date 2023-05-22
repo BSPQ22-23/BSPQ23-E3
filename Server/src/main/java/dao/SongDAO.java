@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
@@ -84,7 +83,4 @@ public class SongDAO extends DataAccessObjectBase implements IDataAccessObject<S
 
 		return result;
 	}
-	public void setPmf(PersistenceManagerFactory pmf) {
-        SongDAO.pmf = pmf;
-    }
 }
