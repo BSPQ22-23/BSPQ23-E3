@@ -24,12 +24,14 @@ public class DataBaseTest {
 		pl = new Playlist("try2");
 		pl.getSongs().add(s);
 		u.getPlaylist().put("try2",pl);
+		UserDAO.getInstance().save(u);
 		u2.setPassword("1234");
 		Song s2 = new Song("Rick Roll ", "pito");
 		Playlist pl2 = new Playlist("try1");
 		pl2.getSongs().add(s2);
 		u2.getPlaylist().put("try1",pl2);
-		UserDAO.getInstance().save(u);
+		u.setPassword("new1234");
+		UserDAO.getInstance().updateUser(u);
 		UserDAO.getInstance().save(u2);
 		Thread.sleep(2000);
 	}
