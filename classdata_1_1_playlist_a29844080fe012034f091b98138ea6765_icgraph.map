@@ -1,0 +1,11 @@
+<map id="data.Playlist.getName" name="data.Playlist.getName">
+<area shape="rect" id="node1" title=" " alt="" coords="529,220,696,247"/>
+<area shape="rect" id="node2" href="$classdao_1_1_playlist_d_a_o.html#a25977c7d248359ad5ae5a6cacb4bf695" title=" " alt="" coords="311,115,465,141"/>
+<area shape="rect" id="node6" href="$class_data_base_test.html#a0ca3620edd56630afa7bc9c491c03e0b" title=" " alt="" coords="56,173,196,200"/>
+<area shape="rect" id="node7" href="$class_playlist_test.html#aa0602eba0053d99ca8c1de738a225f1b" title=" " alt="" coords="295,220,481,247"/>
+<area shape="rect" id="node8" href="$class_user_test.html#a71ee900f65d183473f4a0a4b5723ccfa" title=" " alt="" coords="298,271,478,313"/>
+<area shape="rect" id="node9" href="$class_user_test.html#a3f16d40d674b1126cfc58470255ff394" title=" " alt="" coords="298,337,478,378"/>
+<area shape="rect" id="node3" href="$classhttp_handler_1_1_delete_playlist.html#a761680858dacd7a598fa0f9a3df97c10" title=" " alt="" coords="5,5,247,32"/>
+<area shape="rect" id="node4" href="$classhttp_handler_1_1_delete_song.html#a354ada47f52b2bfb25278b9f70fa4ca7" title=" " alt="" coords="13,56,239,83"/>
+<area shape="rect" id="node5" href="$classhttp_handler_1_1_send_playlist_songs.html#a965be22e177cfc45f7c3090c1e645237" title=" " alt="" coords="35,107,217,149"/>
+</map>

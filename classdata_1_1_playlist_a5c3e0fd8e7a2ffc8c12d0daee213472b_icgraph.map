@@ -1,0 +1,8 @@
+<map id="data.Playlist.getSongs" name="data.Playlist.getSongs">
+<area shape="rect" id="node1" title=" " alt="" coords="295,123,461,149"/>
+<area shape="rect" id="node2" href="$classhttp_handler_1_1_delete_playlist.html#a761680858dacd7a598fa0f9a3df97c10" title=" " alt="" coords="5,5,247,32"/>
+<area shape="rect" id="node3" href="$classhttp_handler_1_1_send_playlist_songs.html#a965be22e177cfc45f7c3090c1e645237" title=" " alt="" coords="35,57,217,98"/>
+<area shape="rect" id="node4" href="$class_data_base_test.html#afee09e3a9d5f032865064f5334625563" title=" " alt="" coords="50,123,202,149"/>
+<area shape="rect" id="node5" href="$class_playlist_test.html#ab56f6ca83cb00c602f32e93feffc0b1b" title=" " alt="" coords="35,173,217,200"/>
+<area shape="rect" id="node6" href="$class_playlist_test.html#ae034d1e3b6917ad4ab51bf54431e0562" title=" " alt="" coords="21,224,231,251"/>
+</map>
